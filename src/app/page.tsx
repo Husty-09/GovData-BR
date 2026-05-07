@@ -125,7 +125,7 @@ export default function Inicio() {
           </Link>
           <Link
             href="/sobre"
-            className="px-6 py-3 rounded-lg font-semibold border border-white/10 text-neutral-300 hover:bg-white/5 transition-colors duration-300"
+            className="px-6 py-3 rounded-lg font-semibold border border-white/10 text-neutral-300 hover:bg-white/5 duration-300"
           >
             Sobre o projeto
           </Link>
@@ -139,9 +139,10 @@ export default function Inicio() {
           {/* Card 1 — IBGE */}
           <motion.div
             variants={cardVariants}
+            initial={{ backgroundColor: "rgba(255,255,255,0.02)" }}
             whileHover={{ y: -5, backgroundColor: "rgba(0,156,59,0.08)", transition: { type: "spring", stiffness: 300, damping: 24 } }}
-            className="relative overflow-hidden rounded-2xl border border-white/8 bg-white/2 backdrop-blur-md p-6 transition-colors duration-300"
-            style={{ boxShadow: "0 20px 40px rgba(0,0,0,0.3)" }}
+            className="relative overflow-hidden rounded-2xl border border-white/8 backdrop-blur-md p-6"
+            style={{ boxShadow: "0 20px 40px rgba(0,0,0,0.3)", willChange: "transform" }}
           >
             <div className="absolute inset-0 bg-linear-to-br from-[#009c3b]/5 to-transparent pointer-events-none" />
             <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border border-[#009c3b]/25 bg-[#009c3b]/10 text-[#00b341] mb-3">
@@ -157,9 +158,10 @@ export default function Inicio() {
           {/* Card 2 — Políticos */}
           <motion.div
             variants={cardVariants}
+            initial={{ backgroundColor: "rgba(255,255,255,0.02)" }}
             whileHover={{ y: -5, backgroundColor: "rgba(255,223,0,0.08)", transition: { type: "spring", stiffness: 300, damping: 24 } }}
-            className="relative overflow-hidden rounded-2xl border border-white/8 bg-white/2 backdrop-blur-md p-6 transition-colors duration-300"
-            style={{ boxShadow: "0 20px 40px rgba(0,0,0,0.3)" }}
+            className="relative overflow-hidden rounded-2xl border border-white/8 backdrop-blur-md p-6"
+            style={{ boxShadow: "0 20px 40px rgba(0,0,0,0.3)", willChange: "transform" }}
           >
             <div className="absolute inset-0 bg-linear-to-br from-[#ffdf00]/5 to-transparent pointer-events-none" />
             <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border border-[#ffdf00]/25 bg-[#ffdf00]/10 text-[#ffdf00] mb-3">
