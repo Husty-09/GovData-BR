@@ -5,6 +5,24 @@ import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { usePathname } from "next/navigation";
 
+const navContainer = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.07,
+      delayChildren: 0.05,
+    },
+  },
+};
+
+const navItem = {
+  hidden: { opacity: 0, y: -8 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { type: "spring", stiffness: 260, damping: 24 },
+  },
+};
 
 export function BarraNavegacao() {
   const pathname = usePathname();
@@ -17,14 +35,24 @@ export function BarraNavegacao() {
   ];
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 border-b border-border/40 bg-background/60 backdrop-blur-md">
-      <div className="container mx-auto px-4 h-16 grid grid-cols-3 items-center">
+    <motion.header
+      className="fixed top-0 left-0 w-full z-50 border-b border-border/40 bg-background/60 backdrop-blur-md"
+      initial={{ opacity: 0, y: -12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ type: "spring", stiffness: 260, damping: 24, delay: 0.02 }}
+    >
+      <motion.div
+        className="container mx-auto px-4 h-16 grid grid-cols-3 items-center"
+        variants={navContainer}
+        initial="hidden"
+        animate="show"
+      >
 
         {/* Logo */}
-        <div className="flex items-center gap-2">
+        <motion.div variants={navItem} className="flex items-center gap-2">
           <Image src="/icon.svg" alt="GovData-BR" width={28} height={28} className="rounded-md" />
           <span className="text-xl font-bold">GovData-BR</span>
-        </div>
+        </motion.div>
 
         {/* Links */}
         <nav className="flex items-center justify-center gap-6">
@@ -34,6 +62,7 @@ export function BarraNavegacao() {
             return (
               <motion.div
                 key={link.name}
+                variants={navItem}
                 whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
                 whileTap={shouldReduceMotion ? {} : { scale: 0.97 }}
                 transition={{ type: "spring", stiffness: 300, damping: 28 }}
@@ -56,7 +85,7 @@ export function BarraNavegacao() {
           })}
         </nav>
 
-      </div>
-    </header>
+      </motion.div>
+    </motion.header>
   );
 }

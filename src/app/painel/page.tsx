@@ -2,6 +2,25 @@
 
 import { motion } from "framer-motion";
 
+const container = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.05,
+    },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 14 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { type: "spring", stiffness: 260, damping: 24 },
+  },
+};
+
 interface CardMetricaProps {
   titulo: string;
   valor: string | number;
@@ -11,40 +30,23 @@ interface CardMetricaProps {
 
 function CardMetrica({ titulo, valor, descricao, cor = "neutro" }: CardMetricaProps) {
   const estilos = {
-    verde: {
-      borderColor: "rgba(0,156,59,0.25)",
-      boxShadow: "0 0 20px rgba(0,156,59,0.12)",
-      accentColor: "#00b341",
-    },
-    amarelo: {
-      borderColor: "rgba(255,223,0,0.25)",
-      boxShadow: "0 0 20px rgba(255,223,0,0.12)",
-      accentColor: "#ffdf00",
-    },
-    neutro: {
-      borderColor: "rgba(255,255,255,0.08)",
-      boxShadow: "none",
-      accentColor: "#a1a1aa",
-    },
+    verde:   { borderColor: "rgba(0,156,59,0.25)",   boxShadow: "0 0 20px rgba(0,156,59,0.12)",   accentColor: "#00b341" },
+    amarelo: { borderColor: "rgba(255,223,0,0.25)",  boxShadow: "0 0 20px rgba(255,223,0,0.12)",  accentColor: "#ffdf00" },
+    neutro:  { borderColor: "rgba(255,255,255,0.08)", boxShadow: "none",                           accentColor: "#a1a1aa" },
   };
 
   const estilo = estilos[cor];
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      whileHover={{ y: -3 }}
-      transition={{ type: "spring", stiffness: 180, damping: 22 }}
-      className="relative overflow-hidden rounded-2xl border bg-white/[0.02] backdrop-blur-md p-6 transition-all duration-300 hover:bg-white/[0.04]"
+      variants={item}
+      whileHover={{ y: -3, transition: { type: "spring", stiffness: 300, damping: 24 } }}
+      className="relative overflow-hidden rounded-2xl border bg-white/[0.02] backdrop-blur-md p-6 hover:bg-white/[0.04] transition-colors duration-300"
       style={{ borderColor: estilo.borderColor, boxShadow: estilo.boxShadow }}
     >
       <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent pointer-events-none -z-10" />
       <p className="text-xs text-neutral-500 uppercase tracking-widest mb-1">{titulo}</p>
-      <p
-        className="text-3xl font-extrabold tracking-tight"
-        style={{ color: estilo.accentColor }}
-      >
+      <p className="text-3xl font-extrabold tracking-tight" style={{ color: estilo.accentColor }}>
         {valor}
       </p>
       {descricao && <p className="text-xs text-neutral-500 mt-1">{descricao}</p>}
@@ -70,25 +72,22 @@ export default function Painel() {
         }}
       />
 
-      <div className="max-w-7xl mx-auto">
+      <motion.div
+        className="max-w-7xl mx-auto"
+        variants={container}
+        initial="hidden"
+        animate="show"
+      >
 
         {/* Cabeçalho */}
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-10"
-        >
+        <motion.div variants={item} className="mb-10">
           <div className="flex items-center gap-3 mb-1">
             <h1 className="text-3xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-neutral-100 to-neutral-400">
               Painel de Dados
             </h1>
             <span
               className="px-2 py-0.5 rounded-full text-xs font-medium border"
-              style={{
-                borderColor: "rgba(0,156,59,0.3)",
-                background: "rgba(0,156,59,0.1)",
-                color: "#00b341",
-              }}
+              style={{ borderColor: "rgba(0,156,59,0.3)", background: "rgba(0,156,59,0.1)", color: "#00b341" }}
             >
               ao vivo
             </span>
@@ -99,21 +98,18 @@ export default function Painel() {
         </motion.div>
 
         {/* Cards de métricas */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+        <motion.div variants={item} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
           <CardMetrica titulo="Estados analisados" valor="27" descricao="todas as UFs" cor="verde" />
           <CardMetrica titulo="Indicadores IBGE" valor="12" descricao="séries históricas" cor="amarelo" />
           <CardMetrica titulo="Mandatos mapeados" valor="—" descricao="a integrar" />
           <CardMetrica titulo="Período coberto" valor="—" descricao="a integrar" />
-        </div>
+        </motion.div>
 
-        {/* Área principal: mapa + painel lateral */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Área principal */}
+        <motion.div variants={item} className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
           {/* Mapa — 2/3 */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
+          <div
             className="lg:col-span-2 rounded-2xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-md overflow-hidden flex items-center justify-center"
             style={{ minHeight: "420px" }}
           >
@@ -122,13 +118,10 @@ export default function Painel() {
               <p className="text-sm">Mapa interativo — React Leaflet</p>
               <p className="text-xs text-neutral-700 mt-1">componente a integrar</p>
             </div>
-          </motion.div>
+          </div>
 
           {/* Lista lateral — 1/3 */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
+          <div
             className="rounded-2xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-md p-6 overflow-y-auto"
             style={{ maxHeight: "420px" }}
           >
@@ -154,10 +147,10 @@ export default function Painel() {
                 </button>
               ))}
             </div>
-          </motion.div>
+          </div>
 
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </main>
   );
 }

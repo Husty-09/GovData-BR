@@ -3,6 +3,34 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 
+const container = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.05,
+    },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 16 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { type: "spring", stiffness: 260, damping: 24 },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 12 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { type: "spring", stiffness: 220, damping: 26 },
+  },
+};
+
 export default function Inicio() {
   return (
     <main className="relative flex min-h-screen flex-col items-center justify-center px-6 pt-32 pb-16 overflow-hidden bg-[#0a0a0a]">
@@ -29,13 +57,16 @@ export default function Inicio() {
         }}
       />
 
-      <div className="z-10 text-center max-w-4xl w-full">
+      <motion.div
+        className="z-10 text-center max-w-4xl w-full"
+        variants={container}
+        initial="hidden"
+        animate="show"
+      >
 
         {/* Badge */}
         <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
+          variants={item}
           className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#009c3b]/30 bg-[#009c3b]/10 text-[#00b341] text-xs font-medium mb-6"
           style={{ boxShadow: "0 0 15px rgba(0,156,59,0.25)" }}
         >
@@ -48,9 +79,7 @@ export default function Inicio() {
 
         {/* Título */}
         <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
+          variants={item}
           className="text-5xl sm:text-7xl font-extrabold tracking-tighter mb-4"
         >
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-neutral-100 to-neutral-400">
@@ -58,9 +87,7 @@ export default function Inicio() {
           </span>
           <span
             className="bg-clip-text text-transparent"
-            style={{
-              backgroundImage: "linear-gradient(to right, #009c3b, #ffdf00)",
-            }}
+            style={{ backgroundImage: "linear-gradient(to right, #009c3b, #ffdf00)" }}
           >
             Data-BR
           </span>
@@ -68,9 +95,7 @@ export default function Inicio() {
 
         {/* Subtítulo */}
         <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+          variants={item}
           className="max-w-xl mx-auto text-lg text-neutral-400 mt-4 mb-10"
         >
           Dashboard interativo que cruza dados econômicos do IBGE com mandatos
@@ -79,9 +104,7 @@ export default function Inicio() {
 
         {/* CTAs */}
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.3 }}
+          variants={item}
           className="flex flex-col sm:flex-row gap-4 justify-center"
         >
           <Link
@@ -92,12 +115,10 @@ export default function Inicio() {
               boxShadow: "0 0 20px rgba(0,156,59,0.4)",
             }}
             onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.boxShadow =
-                "0 0 35px rgba(0,156,59,0.65)";
+              (e.currentTarget as HTMLElement).style.boxShadow = "0 0 35px rgba(0,156,59,0.65)";
             }}
             onMouseLeave={(e) => {
-              (e.currentTarget as HTMLElement).style.boxShadow =
-                "0 0 20px rgba(0,156,59,0.4)";
+              (e.currentTarget as HTMLElement).style.boxShadow = "0 0 20px rgba(0,156,59,0.4)";
             }}
           >
             Ver painel →
@@ -110,22 +131,20 @@ export default function Inicio() {
           </Link>
         </motion.div>
 
-        {/* Cards de destaque */}
-        <div className="mt-20 grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
-
+        {/* Cards */}
+        <motion.div
+          variants={item}
+          className="mt-20 grid grid-cols-1 md:grid-cols-2 gap-6 text-left"
+        >
           {/* Card 1 — IBGE */}
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            whileHover={{ y: -5 }}
-            transition={{ type: "spring", stiffness: 180, damping: 22, delay: 0.4 }}
-            className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-md p-6 transition-all duration-300 hover:bg-white/[0.04]"
+            variants={cardVariants}
+            whileHover={{ y: -5, transition: { type: "spring", stiffness: 300, damping: 24 } }}
+            className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-md p-6 hover:bg-white/[0.04] transition-colors duration-300"
             style={{ boxShadow: "0 20px 40px rgba(0,0,0,0.3)" }}
           >
             <div className="absolute inset-0 bg-gradient-to-br from-[#009c3b]/5 to-transparent pointer-events-none" />
-            <span
-              className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border border-[#009c3b]/25 bg-[#009c3b]/10 text-[#00b341] mb-3"
-            >
+            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border border-[#009c3b]/25 bg-[#009c3b]/10 text-[#00b341] mb-3">
               Dados Econômicos
             </span>
             <h3 className="text-lg font-bold text-white mb-2">IBGE por Estado</h3>
@@ -137,17 +156,13 @@ export default function Inicio() {
 
           {/* Card 2 — Políticos */}
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            whileHover={{ y: -5 }}
-            transition={{ type: "spring", stiffness: 180, damping: 22, delay: 0.5 }}
-            className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-md p-6 transition-all duration-300 hover:bg-white/[0.04]"
+            variants={cardVariants}
+            whileHover={{ y: -5, transition: { type: "spring", stiffness: 300, damping: 24 } }}
+            className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-md p-6 hover:bg-white/[0.04] transition-colors duration-300"
             style={{ boxShadow: "0 20px 40px rgba(0,0,0,0.3)" }}
           >
             <div className="absolute inset-0 bg-gradient-to-br from-[#ffdf00]/5 to-transparent pointer-events-none" />
-            <span
-              className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border border-[#ffdf00]/25 bg-[#ffdf00]/10 text-[#ffdf00] mb-3"
-            >
+            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border border-[#ffdf00]/25 bg-[#ffdf00]/10 text-[#ffdf00] mb-3">
               Mandatos Políticos
             </span>
             <h3 className="text-lg font-bold text-white mb-2">Governos e Mandatos</h3>
@@ -156,9 +171,9 @@ export default function Inicio() {
               econômicos de cada período.
             </p>
           </motion.div>
+        </motion.div>
 
-        </div>
-      </div>
+      </motion.div>
     </main>
   );
 }

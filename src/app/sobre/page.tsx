@@ -3,6 +3,34 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 
+const container = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.05,
+    },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 14 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { type: "spring", stiffness: 260, damping: 24 },
+  },
+};
+
+const card = {
+  hidden: { opacity: 0, y: 12 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { type: "spring", stiffness: 220, damping: 26 },
+  },
+};
+
 const stack = [
   "Next.js 15", "React 18", "TypeScript", "Tailwind CSS",
   "Framer Motion", "React Leaflet", "HustyCore UI",
@@ -32,21 +60,24 @@ export default function Sobre() {
         }}
       />
 
-      {/* Brilho de fundo amarelo-verde */}
+      {/* Brilho de fundo */}
       <div
         className="fixed inset-0 -z-10 pointer-events-none"
         style={{
-          background:
-            "radial-gradient(ellipse 50% 30% at 50% 20%, rgba(255,223,0,0.06) 0%, transparent 70%)",
+          background: "radial-gradient(ellipse 50% 30% at 50% 20%, rgba(255,223,0,0.06) 0%, transparent 70%)",
         }}
       />
 
-      <div className="max-w-3xl mx-auto">
+      <motion.div
+        className="max-w-3xl mx-auto"
+        variants={container}
+        initial="hidden"
+        animate="show"
+      >
 
         {/* Badge */}
         <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
+          variants={item}
           className="inline-flex items-center gap-2 px-3 py-1 rounded-full border text-xs font-medium mb-6"
           style={{
             borderColor: "rgba(255,223,0,0.25)",
@@ -61,9 +92,7 @@ export default function Sobre() {
 
         {/* Título */}
         <motion.h1
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
+          variants={item}
           className="text-4xl sm:text-5xl font-extrabold tracking-tighter mb-4"
         >
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-neutral-100 to-neutral-400">
@@ -71,9 +100,7 @@ export default function Sobre() {
           </span>
           <span
             className="bg-clip-text text-transparent"
-            style={{
-              backgroundImage: "linear-gradient(to right, #009c3b, #ffdf00)",
-            }}
+            style={{ backgroundImage: "linear-gradient(to right, #009c3b, #ffdf00)" }}
           >
             GovData-BR?
           </span>
@@ -81,9 +108,7 @@ export default function Sobre() {
 
         {/* Descrição */}
         <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
+          variants={item}
           className="text-neutral-400 text-lg leading-relaxed mb-12"
         >
           Plataforma de visualização de dados que cruza indicadores econômicos
@@ -93,25 +118,16 @@ export default function Sobre() {
         </motion.p>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12">
+        <motion.div variants={item} className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12">
 
           {/* Missão */}
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            whileHover={{ y: -4 }}
-            transition={{ type: "spring", stiffness: 180, damping: 22, delay: 0.25 }}
-            className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-md p-6 transition-all duration-300 hover:bg-white/[0.04]"
+            variants={card}
+            whileHover={{ y: -4, transition: { type: "spring", stiffness: 300, damping: 24 } }}
+            className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-md p-6 hover:bg-white/[0.04] transition-colors duration-300"
           >
-            <div
-              className="absolute inset-0 pointer-events-none"
-              style={{
-                background: "linear-gradient(135deg, rgba(0,156,59,0.06) 0%, transparent 60%)",
-              }}
-            />
-            <h3 className="text-sm font-semibold mb-2" style={{ color: "#00b341" }}>
-              🎯 Missão
-            </h3>
+            <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(0,156,59,0.06) 0%, transparent 60%)" }} />
+            <h3 className="text-sm font-semibold mb-2" style={{ color: "#00b341" }}>🎯 Missão</h3>
             <p className="text-sm text-neutral-400">
               Democratizar o acesso à informação governamental através de
               visualizações claras e cruzamentos de dados históricos.
@@ -120,34 +136,18 @@ export default function Sobre() {
 
           {/* Fontes */}
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            whileHover={{ y: -4 }}
-            transition={{ type: "spring", stiffness: 180, damping: 22, delay: 0.3 }}
-            className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-md p-6 transition-all duration-300 hover:bg-white/[0.04]"
+            variants={card}
+            whileHover={{ y: -4, transition: { type: "spring", stiffness: 300, damping: 24 } }}
+            className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-md p-6 hover:bg-white/[0.04] transition-colors duration-300"
           >
-            <div
-              className="absolute inset-0 pointer-events-none"
-              style={{
-                background: "linear-gradient(135deg, rgba(255,223,0,0.05) 0%, transparent 60%)",
-              }}
-            />
-            <h3 className="text-sm font-semibold mb-3" style={{ color: "#ffdf00" }}>
-              📡 Fontes de Dados
-            </h3>
+            <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(255,223,0,0.05) 0%, transparent 60%)" }} />
+            <h3 className="text-sm font-semibold mb-3" style={{ color: "#ffdf00" }}>📡 Fontes de Dados</h3>
             <ul className="space-y-1">
               {fontes.map((f) => (
                 <li key={f.nome} className="flex items-center gap-2 text-sm text-neutral-400">
                   <span
                     className="h-1 w-1 rounded-full flex-shrink-0"
-                    style={{
-                      backgroundColor:
-                        f.cor === "verde"
-                          ? "#009c3b"
-                          : f.cor === "amarelo"
-                          ? "#ffdf00"
-                          : "#52525b",
-                    }}
+                    style={{ backgroundColor: f.cor === "verde" ? "#009c3b" : f.cor === "amarelo" ? "#ffdf00" : "#52525b" }}
                   />
                   {f.nome}
                 </li>
@@ -157,33 +157,26 @@ export default function Sobre() {
 
           {/* Stack */}
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            whileHover={{ y: -4 }}
-            transition={{ type: "spring", stiffness: 180, damping: 22, delay: 0.35 }}
-            className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-md p-6 transition-all duration-300 hover:bg-white/[0.04]"
+            variants={card}
+            whileHover={{ y: -4, transition: { type: "spring", stiffness: 300, damping: 24 } }}
+            className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-md p-6 hover:bg-white/[0.04] transition-colors duration-300"
           >
             <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent pointer-events-none" />
             <h3 className="text-sm font-semibold text-neutral-300 mb-3">⚙️ Stack</h3>
             <div className="flex flex-wrap gap-2">
               {stack.map((tech) => (
-                <span
-                  key={tech}
-                  className="px-2 py-0.5 rounded-md text-xs border border-white/[0.08] text-neutral-400 bg-white/[0.03]"
-                >
+                <span key={tech} className="px-2 py-0.5 rounded-md text-xs border border-white/[0.08] text-neutral-400 bg-white/[0.03]">
                   {tech}
                 </span>
               ))}
             </div>
           </motion.div>
 
-          {/* Open Source */}
+          {/* Contribuição */}
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            whileHover={{ y: -4 }}
-            transition={{ type: "spring", stiffness: 180, damping: 22, delay: 0.4 }}
-            className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-md p-6 transition-all duration-300 hover:bg-white/[0.04]"
+            variants={card}
+            whileHover={{ y: -4, transition: { type: "spring", stiffness: 300, damping: 24 } }}
+            className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-md p-6 hover:bg-white/[0.04] transition-colors duration-300"
           >
             <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent pointer-events-none" />
             <h3 className="text-sm font-semibold text-neutral-300 mb-2">🤝 Contribuição</h3>
@@ -193,22 +186,14 @@ export default function Sobre() {
             </p>
           </motion.div>
 
-        </div>
+        </motion.div>
 
         {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-          className="flex gap-4"
-        >
+        <motion.div variants={item} className="flex gap-4">
           <Link
             href="/painel"
             className="px-5 py-2.5 rounded-lg text-sm font-semibold text-white transition-shadow duration-300"
-            style={{
-              background: "linear-gradient(135deg, #009c3b, #007a2e)",
-              boxShadow: "0 0 20px rgba(0,156,59,0.35)",
-            }}
+            style={{ background: "linear-gradient(135deg, #009c3b, #007a2e)", boxShadow: "0 0 20px rgba(0,156,59,0.35)" }}
           >
             Ir ao painel →
           </Link>
@@ -222,7 +207,7 @@ export default function Sobre() {
           </a>
         </motion.div>
 
-      </div>
+      </motion.div>
     </main>
   );
 }
