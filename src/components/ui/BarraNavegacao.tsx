@@ -2,20 +2,18 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 
 
-export function Navbar() {
+export function BarraNavegacao() {
   const[hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const router = useRouter();
   const pathname = usePathname();
 
   const links = [
-    { name: "Home", href: "/" },
-    { name: "Dashboard", href: "/dashboard" },
-    { name: "About", href: "/about" },
+    { name: "Início", href: "/" },
+    { name: "Painel", href: "/painel" },
+    { name: "Sobre", href: "/sobre" },
   ];
 
     return (
