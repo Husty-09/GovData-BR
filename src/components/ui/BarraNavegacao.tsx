@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { usePathname } from "next/navigation";
 
-const navContainer = {
+const navContainer: Variants = {
   hidden: {},
   show: {
     transition: {
@@ -15,7 +15,7 @@ const navContainer = {
   },
 };
 
-const navItem = {
+const navItem: Variants = {
   hidden: { opacity: 0, y: -8 },
   show: {
     opacity: 1,

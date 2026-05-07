@@ -1,9 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import Link from "next/link";
 
-const container = {
+const container: Variants = {
   hidden: {},
   show: {
     transition: {
@@ -13,7 +13,7 @@ const container = {
   },
 };
 
-const item = {
+const item: Variants = {
   hidden: { opacity: 0, y: 16 },
   show: {
     opacity: 1,
@@ -22,7 +22,7 @@ const item = {
   },
 };
 
-const cardVariants = {
+const cardVariants: Variants = {
   hidden: { opacity: 0, y: 12 },
   show: {
     opacity: 1,
@@ -82,7 +82,7 @@ export default function Inicio() {
           variants={item}
           className="text-5xl sm:text-7xl font-extrabold tracking-tighter mb-4"
         >
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-neutral-100 to-neutral-400">
+          <span className="bg-clip-text text-transparent bg-linear-to-r from-neutral-100 to-neutral-400">
             Gov
           </span>
           <span
@@ -140,10 +140,10 @@ export default function Inicio() {
           <motion.div
             variants={cardVariants}
             whileHover={{ y: -5, transition: { type: "spring", stiffness: 300, damping: 24 } }}
-            className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-md p-6 hover:bg-white/[0.04] transition-colors duration-300"
+            className="relative overflow-hidden rounded-2xl border border-white/8 bg-white/2 backdrop-blur-md p-6 hover:bg-white/4 transition-colors duration-300"
             style={{ boxShadow: "0 20px 40px rgba(0,0,0,0.3)" }}
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-[#009c3b]/5 to-transparent pointer-events-none" />
+            <div className="absolute inset-0 bg-linear-to-br from-[#009c3b]/5 to-transparent pointer-events-none" />
             <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border border-[#009c3b]/25 bg-[#009c3b]/10 text-[#00b341] mb-3">
               Dados Econômicos
             </span>
@@ -158,10 +158,10 @@ export default function Inicio() {
           <motion.div
             variants={cardVariants}
             whileHover={{ y: -5, transition: { type: "spring", stiffness: 300, damping: 24 } }}
-            className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-md p-6 hover:bg-white/[0.04] transition-colors duration-300"
+            className="relative overflow-hidden rounded-2xl border border-white/8 bg-white/2 backdrop-blur-md p-6 hover:bg-white/4 transition-colors duration-300"
             style={{ boxShadow: "0 20px 40px rgba(0,0,0,0.3)" }}
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-[#ffdf00]/5 to-transparent pointer-events-none" />
+            <div className="absolute inset-0 bg-linear-to-br from-[#ffdf00]/5 to-transparent pointer-events-none" />
             <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border border-[#ffdf00]/25 bg-[#ffdf00]/10 text-[#ffdf00] mb-3">
               Mandatos Políticos
             </span>

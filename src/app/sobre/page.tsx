@@ -1,9 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import Link from "next/link";
 
-const container = {
+const container: Variants = {
   hidden: {},
   show: {
     transition: {
@@ -13,7 +13,7 @@ const container = {
   },
 };
 
-const item = {
+const item: Variants = {
   hidden: { opacity: 0, y: 14 },
   show: {
     opacity: 1,
@@ -22,7 +22,7 @@ const item = {
   },
 };
 
-const card = {
+const card: Variants = {
   hidden: { opacity: 0, y: 12 },
   show: {
     opacity: 1,
@@ -95,7 +95,7 @@ export default function Sobre() {
           variants={item}
           className="text-4xl sm:text-5xl font-extrabold tracking-tighter mb-4"
         >
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-neutral-100 to-neutral-400">
+          <span className="bg-clip-text text-transparent bg-linear-to-r from-neutral-100 to-neutral-400">
             O que é o{" "}
           </span>
           <span
@@ -124,7 +124,7 @@ export default function Sobre() {
           <motion.div
             variants={card}
             whileHover={{ y: -4, transition: { type: "spring", stiffness: 300, damping: 24 } }}
-            className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-md p-6 hover:bg-white/[0.04] transition-colors duration-300"
+            className="relative overflow-hidden rounded-2xl border border-white/8 bg-white/2 backdrop-blur-md p-6 hover:bg-white/4 transition-colors duration-300"
           >
             <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(0,156,59,0.06) 0%, transparent 60%)" }} />
             <h3 className="text-sm font-semibold mb-2" style={{ color: "#00b341" }}>🎯 Missão</h3>
@@ -138,7 +138,7 @@ export default function Sobre() {
           <motion.div
             variants={card}
             whileHover={{ y: -4, transition: { type: "spring", stiffness: 300, damping: 24 } }}
-            className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-md p-6 hover:bg-white/[0.04] transition-colors duration-300"
+            className="relative overflow-hidden rounded-2xl border border-white/8 bg-white/2 backdrop-blur-md p-6 hover:bg-white/4 transition-colors duration-300"
           >
             <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(255,223,0,0.05) 0%, transparent 60%)" }} />
             <h3 className="text-sm font-semibold mb-3" style={{ color: "#ffdf00" }}>📡 Fontes de Dados</h3>
@@ -159,13 +159,13 @@ export default function Sobre() {
           <motion.div
             variants={card}
             whileHover={{ y: -4, transition: { type: "spring", stiffness: 300, damping: 24 } }}
-            className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-md p-6 hover:bg-white/[0.04] transition-colors duration-300"
+            className="relative overflow-hidden rounded-2xl border border-white/8 bg-white/2 backdrop-blur-md p-6 hover:bg-white/4 transition-colors duration-300"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent pointer-events-none" />
+            <div className="absolute inset-0 bg-linear-to-br from-white/[0.02] to-transparent pointer-events-none" />
             <h3 className="text-sm font-semibold text-neutral-300 mb-3">⚙️ Stack</h3>
             <div className="flex flex-wrap gap-2">
               {stack.map((tech) => (
-                <span key={tech} className="px-2 py-0.5 rounded-md text-xs border border-white/[0.08] text-neutral-400 bg-white/[0.03]">
+                <span key={tech} className="px-2 py-0.5 rounded-md text-xs border border-white/8 text-neutral-400 bg-white/3">
                   {tech}
                 </span>
               ))}
@@ -176,9 +176,9 @@ export default function Sobre() {
           <motion.div
             variants={card}
             whileHover={{ y: -4, transition: { type: "spring", stiffness: 300, damping: 24 } }}
-            className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-md p-6 hover:bg-white/[0.04] transition-colors duration-300"
+            className="relative overflow-hidden rounded-2xl border border-white/8 bg-white/2 backdrop-blur-md p-6 hover:bg-white/4 transition-colors duration-300"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent pointer-events-none" />
+            <div className="absolute inset-0 bg-linear-to-br from-white/[0.02] to-transparent pointer-events-none" />
             <h3 className="text-sm font-semibold text-neutral-300 mb-2">🤝 Contribuição</h3>
             <p className="text-sm text-neutral-400">
               Projeto open source. Contribuições são bem-vindas — abra uma
