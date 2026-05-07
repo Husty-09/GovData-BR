@@ -1,65 +1,164 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { motion } from "framer-motion";
+import Link from "next/link";
+
+export default function Inicio() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            GovData-BR
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Dashboard interativo que cruza dados econômicos do IBGE com mandatos políticos brasileiros por estado e período histórico.{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <main className="relative flex min-h-screen flex-col items-center justify-center px-6 pt-32 pb-16 overflow-hidden bg-[#0a0a0a]">
+
+      {/* Grid de fundo */}
+      <div
+        className="absolute inset-0 -z-10"
+        style={{
+          backgroundSize: "40px 40px",
+          backgroundImage: `
+            linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px)
+          `,
+          maskImage: "radial-gradient(ellipse at center, black 40%, transparent 80%)",
+          WebkitMaskImage: "radial-gradient(ellipse at center, black 40%, transparent 80%)",
+        }}
+      />
+
+      {/* Brilho de fundo verde */}
+      <div
+        className="absolute inset-0 -z-10 pointer-events-none"
+        style={{
+          background: "radial-gradient(ellipse 60% 40% at 50% 60%, rgba(0,156,59,0.12) 0%, transparent 70%)",
+        }}
+      />
+
+      <div className="z-10 text-center max-w-4xl w-full">
+
+        {/* Badge */}
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#009c3b]/30 bg-[#009c3b]/10 text-[#00b341] text-xs font-medium mb-6"
+          style={{ boxShadow: "0 0 15px rgba(0,156,59,0.25)" }}
+        >
+          <span
+            className="h-1.5 w-1.5 rounded-full bg-[#00b341] animate-pulse"
+            style={{ boxShadow: "0 0 8px #009c3b" }}
+          />
+          Dados abertos do governo brasileiro
+        </motion.div>
+
+        {/* Título */}
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="text-5xl sm:text-7xl font-extrabold tracking-tighter mb-4"
+        >
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-neutral-100 to-neutral-400">
+            Gov
+          </span>
+          <span
+            className="bg-clip-text text-transparent"
+            style={{
+              backgroundImage: "linear-gradient(to right, #009c3b, #ffdf00)",
+            }}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            Data-BR
+          </span>
+        </motion.h1>
+
+        {/* Subtítulo */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="max-w-xl mx-auto text-lg text-neutral-400 mt-4 mb-10"
+        >
+          Dashboard interativo que cruza dados econômicos do IBGE com mandatos
+          políticos brasileiros por estado e período histórico.
+        </motion.p>
+
+        {/* CTAs */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.3 }}
+          className="flex flex-col sm:flex-row gap-4 justify-center"
+        >
+          <Link
+            href="/painel"
+            className="px-6 py-3 rounded-lg font-semibold text-white transition-shadow duration-300"
+            style={{
+              background: "linear-gradient(135deg, #009c3b, #007a2e)",
+              boxShadow: "0 0 20px rgba(0,156,59,0.4)",
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLElement).style.boxShadow =
+                "0 0 35px rgba(0,156,59,0.65)";
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLElement).style.boxShadow =
+                "0 0 20px rgba(0,156,59,0.4)";
+            }}
           >
-            Documentation
-          </a>
+            Ver painel →
+          </Link>
+          <Link
+            href="/sobre"
+            className="px-6 py-3 rounded-lg font-semibold border border-white/10 text-neutral-300 hover:bg-white/5 transition-colors duration-300"
+          >
+            Sobre o projeto
+          </Link>
+        </motion.div>
+
+        {/* Cards de destaque */}
+        <div className="mt-20 grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+
+          {/* Card 1 — IBGE */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            whileHover={{ y: -5 }}
+            transition={{ type: "spring", stiffness: 180, damping: 22, delay: 0.4 }}
+            className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-md p-6 transition-all duration-300 hover:bg-white/[0.04]"
+            style={{ boxShadow: "0 20px 40px rgba(0,0,0,0.3)" }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-[#009c3b]/5 to-transparent pointer-events-none" />
+            <span
+              className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border border-[#009c3b]/25 bg-[#009c3b]/10 text-[#00b341] mb-3"
+            >
+              Dados Econômicos
+            </span>
+            <h3 className="text-lg font-bold text-white mb-2">IBGE por Estado</h3>
+            <p className="text-sm text-neutral-400">
+              PIB, desemprego, IDH e indicadores regionais organizados por
+              período histórico e unidade federativa.
+            </p>
+          </motion.div>
+
+          {/* Card 2 — Políticos */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            whileHover={{ y: -5 }}
+            transition={{ type: "spring", stiffness: 180, damping: 22, delay: 0.5 }}
+            className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-md p-6 transition-all duration-300 hover:bg-white/[0.04]"
+            style={{ boxShadow: "0 20px 40px rgba(0,0,0,0.3)" }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-[#ffdf00]/5 to-transparent pointer-events-none" />
+            <span
+              className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border border-[#ffdf00]/25 bg-[#ffdf00]/10 text-[#ffdf00] mb-3"
+            >
+              Mandatos Políticos
+            </span>
+            <h3 className="text-lg font-bold text-white mb-2">Governos e Mandatos</h3>
+            <p className="text-sm text-neutral-400">
+              Cruzamento de gestões estaduais e federais com os indicadores
+              econômicos de cada período.
+            </p>
+          </motion.div>
+
         </div>
-      </main>
-    </div>
+      </div>
+    </main>
   );
 }
