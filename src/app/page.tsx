@@ -139,8 +139,8 @@ export default function Inicio() {
           {/* Card 1 — IBGE */}
           <motion.div
             variants={cardVariants}
-            whileHover={{ y: -5, transition: { type: "spring", stiffness: 300, damping: 24 } }}
-            className="relative overflow-hidden rounded-2xl border border-white/8 bg-white/2 backdrop-blur-md p-6 hover:bg-white/4 transition-colors duration-300"
+            whileHover={{ y: -5, backgroundColor: "rgba(0,156,59,0.08)", transition: { type: "spring", stiffness: 300, damping: 24 } }}
+            className="relative overflow-hidden rounded-2xl border border-white/8 bg-white/2 backdrop-blur-md p-6 transition-colors duration-300"
             style={{ boxShadow: "0 20px 40px rgba(0,0,0,0.3)" }}
           >
             <div className="absolute inset-0 bg-linear-to-br from-[#009c3b]/5 to-transparent pointer-events-none" />
@@ -157,8 +157,8 @@ export default function Inicio() {
           {/* Card 2 — Políticos */}
           <motion.div
             variants={cardVariants}
-            whileHover={{ y: -5, transition: { type: "spring", stiffness: 300, damping: 24 } }}
-            className="relative overflow-hidden rounded-2xl border border-white/8 bg-white/2 backdrop-blur-md p-6 hover:bg-white/4 transition-colors duration-300"
+            whileHover={{ y: -5, backgroundColor: "rgba(255,223,0,0.08)", transition: { type: "spring", stiffness: 300, damping: 24 } }}
+            className="relative overflow-hidden rounded-2xl border border-white/8 bg-white/2 backdrop-blur-md p-6 transition-colors duration-300"
             style={{ boxShadow: "0 20px 40px rgba(0,0,0,0.3)" }}
           >
             <div className="absolute inset-0 bg-linear-to-br from-[#ffdf00]/5 to-transparent pointer-events-none" />
