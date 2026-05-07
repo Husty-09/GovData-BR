@@ -37,14 +37,26 @@ const stack = [
 ];
 
 const fontes = [
-  { nome: "IBGE — Séries Históricas", cor: "verde" },
-  { nome: "TSE — Dados Eleitorais", cor: "amarelo" },
-  { nome: "Portais de Dados Abertos", cor: "neutro" },
+  {
+    nome: "IBGE — Séries Históricas",
+    href: "https://www.ibge.gov.br/estatisticas/downloads-estatisticas.html",
+    cor: "verde",
+  },
+  {
+    nome: "TSE — Dados Eleitorais",
+    href: "https://dadosabertos.tse.jus.br",
+    cor: "amarelo",
+  },
+  {
+    nome: "Portal Brasileiro de Dados Abertos",
+    href: "https://dados.gov.br",
+    cor: "neutro",
+  },
 ];
 
 export default function Sobre() {
   return (
-    <main className="min-h-screen bg-[#0a0a0a] px-6 pt-32 pb-20 overflow-hidden">
+    <main className="h-screen bg-[#0a0a0a] px-6 pt-24 pb-8 overflow-hidden">
 
       {/* Grid de fundo */}
       <div
@@ -109,7 +121,7 @@ export default function Sobre() {
         {/* Descrição */}
         <motion.p
           variants={item}
-          className="text-neutral-400 text-lg leading-relaxed mb-12"
+          className="text-neutral-400 text-base leading-relaxed mb-6"
         >
           Plataforma de visualização de dados que cruza indicadores econômicos
           do IBGE com mandatos políticos brasileiros. O objetivo é facilitar
@@ -118,13 +130,13 @@ export default function Sobre() {
         </motion.p>
 
         {/* Cards */}
-        <motion.div variants={item} className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12">
+        <motion.div variants={item} className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
 
           {/* Missão */}
           <motion.div
             variants={card}
-            whileHover={{ y: -4, transition: { type: "spring", stiffness: 300, damping: 24 } }}
-            className="relative overflow-hidden rounded-2xl border border-white/8 bg-white/2 backdrop-blur-md p-6 hover:bg-white/4 transition-colors duration-300"
+            whileHover={{ y: -4, backgroundColor: "rgba(0,156,59,0.08)", transition: { type: "spring", stiffness: 300, damping: 24 } }}
+            className="relative overflow-hidden rounded-2xl border border-white/8 bg-white/2 backdrop-blur-md p-6 transition-colors duration-300"
           >
             <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(0,156,59,0.06) 0%, transparent 60%)" }} />
             <h3 className="text-sm font-semibold mb-2" style={{ color: "#00b341" }}>🎯 Missão</h3>
@@ -137,19 +149,27 @@ export default function Sobre() {
           {/* Fontes */}
           <motion.div
             variants={card}
-            whileHover={{ y: -4, transition: { type: "spring", stiffness: 300, damping: 24 } }}
-            className="relative overflow-hidden rounded-2xl border border-white/8 bg-white/2 backdrop-blur-md p-6 hover:bg-white/4 transition-colors duration-300"
+            whileHover={{ y: -4, backgroundColor: "rgba(255,223,0,0.08)", transition: { type: "spring", stiffness: 300, damping: 24 } }}
+            className="relative overflow-hidden rounded-2xl border border-white/8 bg-white/2 backdrop-blur-md p-6 transition-colors duration-300"
           >
             <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(255,223,0,0.05) 0%, transparent 60%)" }} />
             <h3 className="text-sm font-semibold mb-3" style={{ color: "#ffdf00" }}>📡 Fontes de Dados</h3>
-            <ul className="space-y-1">
+            <ul className="space-y-2">
               {fontes.map((f) => (
-                <li key={f.nome} className="flex items-center gap-2 text-sm text-neutral-400">
-                  <span
-                    className="h-1 w-1 rounded-full flex-shrink-0"
-                    style={{ backgroundColor: f.cor === "verde" ? "#009c3b" : f.cor === "amarelo" ? "#ffdf00" : "#52525b" }}
-                  />
-                  {f.nome}
+                <li key={f.nome}>
+                  <a
+                    href={f.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-sm text-neutral-400 hover:text-neutral-200 transition-colors duration-150"
+                  >
+                    <span
+                      className="h-1 w-1 rounded-full flex-shrink-0"
+                      style={{ backgroundColor: f.cor === "verde" ? "#009c3b" : f.cor === "amarelo" ? "#ffdf00" : "#52525b" }}
+                    />
+                    {f.nome}
+                    <span className="text-[10px] text-neutral-600 ml-auto">↗</span>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -158,10 +178,10 @@ export default function Sobre() {
           {/* Stack */}
           <motion.div
             variants={card}
-            whileHover={{ y: -4, transition: { type: "spring", stiffness: 300, damping: 24 } }}
-            className="relative overflow-hidden rounded-2xl border border-white/8 bg-white/2 backdrop-blur-md p-6 hover:bg-white/4 transition-colors duration-300"
+            whileHover={{ y: -4, backgroundColor: "rgba(255,255,255,0.04)", transition: { type: "spring", stiffness: 300, damping: 24 } }}
+            className="relative overflow-hidden rounded-2xl border border-white/8 bg-white/2 backdrop-blur-md p-6 transition-colors duration-300"
           >
-            <div className="absolute inset-0 bg-linear-to-br from-white/[0.02] to-transparent pointer-events-none" />
+            <div className="absolute inset-0 bg-linear-to-br from-white/2 to-transparent pointer-events-none" />
             <h3 className="text-sm font-semibold text-neutral-300 mb-3">⚙️ Stack</h3>
             <div className="flex flex-wrap gap-2">
               {stack.map((tech) => (
@@ -172,17 +192,19 @@ export default function Sobre() {
             </div>
           </motion.div>
 
-          {/* Contribuição */}
+          {/* Autor */}
           <motion.div
             variants={card}
-            whileHover={{ y: -4, transition: { type: "spring", stiffness: 300, damping: 24 } }}
-            className="relative overflow-hidden rounded-2xl border border-white/8 bg-white/2 backdrop-blur-md p-6 hover:bg-white/4 transition-colors duration-300"
+            whileHover={{ y: -4, backgroundColor: "rgba(255,255,255,0.04)", transition: { type: "spring", stiffness: 300, damping: 24 } }}
+            className="relative overflow-hidden rounded-2xl border border-white/8 bg-white/2 backdrop-blur-md p-6 transition-colors duration-300"
           >
-            <div className="absolute inset-0 bg-linear-to-br from-white/[0.02] to-transparent pointer-events-none" />
-            <h3 className="text-sm font-semibold text-neutral-300 mb-2">🤝 Contribuição</h3>
-            <p className="text-sm text-neutral-400">
-              Projeto open source. Contribuições são bem-vindas — abra uma
-              issue ou pull request no repositório.
+            <div className="absolute inset-0 bg-linear-to-br from-white/2 to-transparent pointer-events-none" />
+            <h3 className="text-sm font-semibold text-neutral-300 mb-2">👤 Autor</h3>
+            <p className="text-sm text-neutral-400 leading-relaxed">
+              Matheus — estudante apaixonado por cenários econômicos e história.
+              O GovData-BR nasceu da vontade de unir o interesse em dados públicos
+              com desenvolvimento web, criando uma ferramenta visual, simples e
+              interativa para explorar a economia brasileira.
             </p>
           </motion.div>
 
@@ -198,12 +220,12 @@ export default function Sobre() {
             Ir ao painel →
           </Link>
           <a
-            href="https://github.com/"
+            href="https://github.com/Husty-09"
             target="_blank"
             rel="noopener noreferrer"
             className="px-5 py-2.5 rounded-lg text-sm font-semibold border border-white/10 text-neutral-300 hover:bg-white/5 transition-colors duration-300"
           >
-            GitHub
+            GitHub →
           </a>
         </motion.div>
 
