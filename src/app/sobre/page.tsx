@@ -135,11 +135,11 @@ export default function Sobre() {
           {/* Missão */}
           <motion.div
             variants={card}
-            initial={{ backgroundColor: "rgba(255,255,255,0.02)" }}
-            whileHover={{ y: -4, backgroundColor: "rgba(0,156,59,0.08)", transition: { type: "spring", stiffness: 300, damping: 24 } }}
-            className="relative overflow-hidden rounded-2xl border border-white/8 backdrop-blur-md p-6"
+            whileHover={{ y: -4, transition: { type: "spring", stiffness: 300, damping: 24 } }}
+            className="relative overflow-hidden rounded-2xl border border-white/8 backdrop-blur-md p-6 bg-white/2"
             style={{ willChange: "transform" }}
           >
+            <div className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-300 pointer-events-none" style={{ backgroundColor: "rgba(0,156,59,0.08)" }} />
             <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(0,156,59,0.06) 0%, transparent 60%)" }} />
             <h3 className="text-sm font-semibold mb-2" style={{ color: "#00b341" }}>🎯 Missão</h3>
             <p className="text-sm text-neutral-400">
@@ -151,11 +151,11 @@ export default function Sobre() {
           {/* Fontes */}
           <motion.div
             variants={card}
-            initial={{ backgroundColor: "rgba(255,255,255,0.02)" }}
-            whileHover={{ y: -4, backgroundColor: "rgba(255,223,0,0.08)", transition: { type: "spring", stiffness: 300, damping: 24 } }}
-            className="relative overflow-hidden rounded-2xl border border-white/8 backdrop-blur-md p-6"
+            whileHover={{ y: -4, transition: { type: "spring", stiffness: 300, damping: 24 } }}
+            className="relative overflow-hidden rounded-2xl border border-white/8 backdrop-blur-md p-6 bg-white/2"
             style={{ willChange: "transform" }}
           >
+            <div className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-300 pointer-events-none" style={{ backgroundColor: "rgba(255,223,0,0.08)" }} />
             <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(255,223,0,0.05) 0%, transparent 60%)" }} />
             <h3 className="text-sm font-semibold mb-3" style={{ color: "#ffdf00" }}>📡 Fontes de Dados</h3>
             <ul className="space-y-2">
@@ -168,7 +168,7 @@ export default function Sobre() {
                     className="flex items-center gap-2 text-sm text-neutral-400 hover:text-neutral-200 transition-colors duration-150"
                   >
                     <span
-                      className="h-1 w-1 rounded-full flex-shrink-0"
+                      className="h-1 w-1 rounded-full shrink-0"
                       style={{ backgroundColor: f.cor === "verde" ? "#009c3b" : f.cor === "amarelo" ? "#ffdf00" : "#52525b" }}
                     />
                     {f.nome}
@@ -182,11 +182,11 @@ export default function Sobre() {
           {/* Stack */}
           <motion.div
             variants={card}
-            initial={{ backgroundColor: "rgba(255,255,255,0.02)" }}
-            whileHover={{ y: -4, backgroundColor: "rgba(255,255,255,0.04)", transition: { type: "spring", stiffness: 300, damping: 24 } }}
-            className="relative overflow-hidden rounded-2xl border border-white/8 backdrop-blur-md p-6"
+            whileHover={{ y: -4, transition: { type: "spring", stiffness: 300, damping: 24 } }}
+            className="relative overflow-hidden rounded-2xl border border-white/8 backdrop-blur-md p-6 bg-white/2"
             style={{ willChange: "transform" }}
           >
+            <div className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-300 pointer-events-none" style={{ backgroundColor: "rgba(255,255,255,0.04)" }} />
             <div className="absolute inset-0 bg-linear-to-br from-white/2 to-transparent pointer-events-none" />
             <h3 className="text-sm font-semibold text-neutral-300 mb-3">⚙️ Stack</h3>
             <div className="flex flex-wrap gap-2">
@@ -201,11 +201,11 @@ export default function Sobre() {
           {/* Autor */}
           <motion.div
             variants={card}
-            initial={{ backgroundColor: "rgba(255,255,255,0.02)" }}
-            whileHover={{ y: -4, backgroundColor: "rgba(255,255,255,0.04)", transition: { type: "spring", stiffness: 300, damping: 24 } }}
-            className="relative overflow-hidden rounded-2xl border border-white/8 backdrop-blur-md p-6"
+            whileHover={{ y: -4, transition: { type: "spring", stiffness: 300, damping: 24 } }}
+            className="relative overflow-hidden rounded-2xl border border-white/8 backdrop-blur-md p-6 bg-white/2"
             style={{ willChange: "transform" }}
           >
+            <div className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-300 pointer-events-none" style={{ backgroundColor: "rgba(255,255,255,0.04)" }} />
             <div className="absolute inset-0 bg-linear-to-br from-white/2 to-transparent pointer-events-none" />
             <h3 className="text-sm font-semibold text-neutral-300 mb-2">👤 Autor</h3>
             <p className="text-sm text-neutral-400 leading-relaxed">

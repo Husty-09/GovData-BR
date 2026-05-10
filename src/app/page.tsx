@@ -139,11 +139,11 @@ export default function Inicio() {
           {/* Card 1 — IBGE */}
           <motion.div
             variants={cardVariants}
-            initial={{ backgroundColor: "rgba(255,255,255,0.02)" }}
-            whileHover={{ y: -5, backgroundColor: "rgba(0,156,59,0.08)", transition: { type: "spring", stiffness: 300, damping: 24 } }}
-            className="relative overflow-hidden rounded-2xl border border-white/8 backdrop-blur-md p-6"
+            whileHover={{ y: -5, transition: { type: "spring", stiffness: 300, damping: 24 } }}
+            className="relative overflow-hidden rounded-2xl border border-white/8 backdrop-blur-md p-6 bg-white/2"
             style={{ boxShadow: "0 20px 40px rgba(0,0,0,0.3)", willChange: "transform" }}
           >
+            <div className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-300 pointer-events-none" style={{ backgroundColor: "rgba(0,156,59,0.08)" }} />
             <div className="absolute inset-0 bg-linear-to-br from-[#009c3b]/5 to-transparent pointer-events-none" />
             <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border border-[#009c3b]/25 bg-[#009c3b]/10 text-[#00b341] mb-3">
               Dados Econômicos
@@ -158,11 +158,11 @@ export default function Inicio() {
           {/* Card 2 — Políticos */}
           <motion.div
             variants={cardVariants}
-            initial={{ backgroundColor: "rgba(255,255,255,0.02)" }}
-            whileHover={{ y: -5, backgroundColor: "rgba(255,223,0,0.08)", transition: { type: "spring", stiffness: 300, damping: 24 } }}
-            className="relative overflow-hidden rounded-2xl border border-white/8 backdrop-blur-md p-6"
+            whileHover={{ y: -5, transition: { type: "spring", stiffness: 300, damping: 24 } }}
+            className="relative overflow-hidden rounded-2xl border border-white/8 backdrop-blur-md p-6 bg-white/2"
             style={{ boxShadow: "0 20px 40px rgba(0,0,0,0.3)", willChange: "transform" }}
           >
+            <div className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-300 pointer-events-none" style={{ backgroundColor: "rgba(255,223,0,0.08)" }} />
             <div className="absolute inset-0 bg-linear-to-br from-[#ffdf00]/5 to-transparent pointer-events-none" />
             <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border border-[#ffdf00]/25 bg-[#ffdf00]/10 text-[#ffdf00] mb-3">
               Mandatos Políticos

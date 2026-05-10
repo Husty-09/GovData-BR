@@ -40,11 +40,15 @@ function CardMetrica({ titulo, valor, descricao, cor = "neutro" }: CardMetricaPr
   return (
     <motion.div
       variants={item}
-      initial={{ backgroundColor: "rgba(255,255,255,0.02)" }}
-      whileHover={{ y: -3, backgroundColor: estilo.hoverBg, transition: { type: "spring", stiffness: 300, damping: 24 } }}
-      className="relative overflow-hidden rounded-xl border backdrop-blur-md px-4 py-3"
+      whileHover={{ y: -3, transition: { type: "spring", stiffness: 300, damping: 24 } }}
+      className="relative overflow-hidden rounded-xl border backdrop-blur-md px-4 py-3 bg-white/2"
       style={{ borderColor: estilo.borderColor, boxShadow: estilo.boxShadow, willChange: "transform" }}
     >
+
+      <div
+        className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+        style={{ backgroundColor: estilo.hoverBg }}
+      />
       <div className="absolute inset-0 bg-linear-to-br from-white/3 to-transparent pointer-events-none -z-10" />
       <p className="text-[10px] text-neutral-500 uppercase tracking-widest mb-0.5">{titulo}</p>
       <p className="text-xl font-extrabold tracking-tight" style={{ color: estilo.accentColor }}>
