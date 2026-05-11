@@ -1,4 +1,4 @@
-import type { ResultadoIBGE } from "./types";
+import type { ResultadoIBGE, DesempregoData, PopulacaoData } from "./types";
 
 export async function buscarPIB(): Promise<ResultadoIBGE[]> {
   try {
@@ -13,15 +13,24 @@ export async function buscarPIB(): Promise<ResultadoIBGE[]> {
   }
 }
 
-export async function buscarDesemprego(): Promise<ResultadoIBGE[]> {
+export async function buscarDesemprego(): Promise<DesempregoData> {
   try {
-    const resposta = await fetch(
-      "https://servicodados.ibge.gov.br/api/v3/agregados/6318/periodos/20224/variaveis/4099?localidades=N3[all]",
-    );
+    const resposta = await fetch("/desemprego.json");
     const dados = await resposta.json();
     return dados;
   } catch (error) {
-    console.error("Erro ao buscar Desemprego:", error);
-    return [];
+    console.error("Erro ao buscar Desemprego:", String(error));
+    return {};
+  }
+}
+
+export async function buscarPopulacao(): Promise<PopulacaoData> {
+  try {
+    const resposta = await fetch("/populacao.json");
+    const dados = await resposta.json();
+    return dados;
+  } catch (error) {
+    console.error("Erro ao buscar População:", String(error));
+    return {};
   }
 }

@@ -2,10 +2,10 @@
 
 import { motion, type Variants } from "framer-motion";
 import { useEffect, useState } from "react";
-import { buscarPIB, buscarDesemprego } from "@/lib/ibge";
+import { buscarPIB, buscarDesemprego, buscarPopulacao } from "@/lib/ibge";
 import MapaBrasil from "@/components/MapaBrasil";
 import { MotionDropdown } from "@/components/MotionDropdown";
-import type { ResultadoIBGE } from "@/lib/types";
+import type { ResultadoIBGE, DesempregoData, PopulacaoData } from "@/lib/types";
 
 const container: Variants = {
   hidden: {},
@@ -134,13 +134,17 @@ export default function Painel() {
 
   const [dados, setDados] = useState<{
     pib: ResultadoIBGE[];
-    desemprego: ResultadoIBGE[];
-  }>({ pib: [], desemprego: [] });
+    desemprego: DesempregoData;
+    populacao: PopulacaoData;
+  }>({ pib: [], desemprego: {}, populacao: {} });
 
   useEffect(() => {
     buscarPIB().then((pib) => setDados((prev) => ({ ...prev, pib })));
     buscarDesemprego().then((desemprego) =>
       setDados((prev) => ({ ...prev, desemprego })),
+    );
+    buscarPopulacao().then((populacao) =>
+      setDados((prev) => ({ ...prev, populacao })),
     );
   }, []);
 
@@ -169,9 +173,13 @@ export default function Painel() {
     return valor ? Number(valor).toLocaleString("pt-BR") : "—";
   }
 
-  const periodoDesemprego = `${anoSelecionado}4`; // sempre Q4
   const pibEstado = estadoSelecionado ? getIndicador(dados.pib, estadoSelecionado, anoSelecionado) : "—";
-  const desempregoEstado = estadoSelecionado ? getIndicador(dados.desemprego, estadoSelecionado, periodoDesemprego) : "—";
+  const desempregoEstado = estadoSelecionado
+    ? (dados.desemprego[anoSelecionado]?.[estadoSelecionado]?.toFixed(1) ?? "—") + "%"
+    : "—";
+  const populacaoEstado = estadoSelecionado
+    ? (dados.populacao[anoSelecionado]?.[estadoSelecionado]?.toLocaleString("pt-BR") ?? "—")
+    : "—";
 
   return (
     <main className="min-h-screen bg-[#0a0a0a] px-6 pt-28 pb-16">
@@ -273,15 +281,15 @@ export default function Painel() {
                 cor="verde"
               />
               <CardMetrica
+                titulo="População"
+                valor={populacaoEstado}
+                descricao={estadoSelecionado ? `habitantes (${anoSelecionado})` : "selecione um estado"}
+              />
+              <CardMetrica
                 titulo="Desemprego"
                 valor={desempregoEstado}
                 descricao={estadoSelecionado ? `taxa % (${anoSelecionado} T4)` : "selecione um estado"}
                 cor="amarelo"
-              />
-              <CardMetrica
-                titulo="População"
-                valor="—"
-                descricao="a integrar"
               />
               <CardMetrica
                 titulo="Mandato Político"

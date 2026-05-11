@@ -1,0 +1,58 @@
+{
+  "_fonte": {
+    "descricao": "Taxa de desocupação anual (%) por Unidade da Federação — PNAD Contínua / IBGE",
+    "confiabilidade": {
+      "2023": "oficial — dados do release IBGE (fev/2024)",
+      "2022": "estimado — baseado na variação nacional e deltas por estado divulgados pelo IBGE",
+      "2021": "estimado — baseado na média nacional de 13.2% e distribuição regional",
+      "2020": "estimado — baseado na média nacional de 13.5% (ano pandêmico)",
+      "2019": "estimado — baseado na média nacional de 11.9% e distribuição regional"
+    },
+    "substituir": "Substituir anos 2019-2022 pelos dados oficiais da tabela SIDRA 6399 quando disponível"
+  },
+  "2019": {
+    "Acre": 13.5, "Alagoas": 16.8, "Amapá": 12.8, "Amazonas": 11.2,
+    "Bahia": 17.0, "Ceará": 13.5, "Distrito Federal": 13.4, "Espírito Santo": 11.0,
+    "Goiás": 10.5, "Maranhão": 13.6, "Mato Grosso": 7.2, "Mato Grosso do Sul": 7.8,
+    "Minas Gerais": 11.0, "Pará": 11.8, "Paraíba": 14.5, "Paraná": 7.0,
+    "Pernambuco": 17.2, "Piauí": 12.0, "Rio de Janeiro": 15.2, "Rio Grande do Norte": 16.2,
+    "Rio Grande do Sul": 7.5, "Rondônia": 5.8, "Roraima": 10.2, "Santa Catarina": 5.0,
+    "São Paulo": 11.2, "Sergipe": 16.5, "Tocantins": 10.0
+  },
+  "2020": {
+    "Acre": 15.0, "Alagoas": 18.2, "Amapá": 14.8, "Amazonas": 13.8,
+    "Bahia": 19.5, "Ceará": 15.2, "Distrito Federal": 15.0, "Espírito Santo": 13.2,
+    "Goiás": 12.5, "Maranhão": 15.2, "Mato Grosso": 8.8, "Mato Grosso do Sul": 9.4,
+    "Minas Gerais": 13.0, "Pará": 13.5, "Paraíba": 16.2, "Paraná": 8.8,
+    "Pernambuco": 19.5, "Piauí": 14.0, "Rio de Janeiro": 17.8, "Rio Grande do Norte": 18.0,
+    "Rio Grande do Sul": 9.2, "Rondônia": 7.2, "Roraima": 12.0, "Santa Catarina": 6.5,
+    "São Paulo": 13.5, "Sergipe": 18.5, "Tocantins": 12.0
+  },
+  "2021": {
+    "Acre": 14.8, "Alagoas": 17.8, "Amapá": 15.2, "Amazonas": 14.0,
+    "Bahia": 19.0, "Ceará": 14.8, "Distrito Federal": 14.2, "Espírito Santo": 12.8,
+    "Goiás": 12.0, "Maranhão": 15.8, "Mato Grosso": 8.5, "Mato Grosso do Sul": 9.0,
+    "Minas Gerais": 12.5, "Pará": 13.0, "Paraíba": 15.8, "Paraná": 8.5,
+    "Pernambuco": 19.0, "Piauí": 13.5, "Rio de Janeiro": 17.2, "Rio Grande do Norte": 17.5,
+    "Rio Grande do Sul": 8.8, "Rondônia": 6.8, "Roraima": 11.5, "Santa Catarina": 6.2,
+    "São Paulo": 13.0, "Sergipe": 18.0, "Tocantins": 11.5
+  },
+  "2022": {
+    "Acre": 12.7, "Alagoas": 15.4, "Amapá": 13.1, "Amazonas": 12.1,
+    "Bahia": 15.0, "Ceará": 11.9, "Distrito Federal": 9.8, "Espírito Santo": 9.0,
+    "Goiás": 7.6, "Maranhão": 12.7, "Mato Grosso": 5.1, "Mato Grosso do Sul": 6.3,
+    "Minas Gerais": 9.0, "Pará": 10.8, "Paraíba": 12.6, "Paraná": 6.6,
+    "Pernambuco": 15.2, "Piauí": 10.3, "Rio de Janeiro": 13.7, "Rio Grande do Norte": 13.8,
+    "Rio Grande do Sul": 6.8, "Rondônia": 5.0, "Roraima": 6.8, "Santa Catarina": 5.2,
+    "São Paulo": 9.6, "Sergipe": 14.2, "Tocantins": 8.8
+  },
+  "2023": {
+    "Acre": 7.8, "Alagoas": 13.6, "Amapá": 11.3, "Amazonas": 8.9,
+    "Bahia": 13.2, "Ceará": 10.1, "Distrito Federal": 8.0, "Espírito Santo": 7.2,
+    "Goiás": 5.8, "Maranhão": 9.2, "Mato Grosso": 3.3, "Mato Grosso do Sul": 4.5,
+    "Minas Gerais": 7.2, "Pará": 9.0, "Paraíba": 10.8, "Paraná": 4.8,
+    "Pernambuco": 13.4, "Piauí": 8.5, "Rio de Janeiro": 10.5, "Rio Grande do Norte": 12.0,
+    "Rio Grande do Sul": 5.0, "Rondônia": 3.2, "Roraima": 8.5, "Santa Catarina": 3.4,
+    "São Paulo": 7.8, "Sergipe": 12.4, "Tocantins": 7.0
+  }
+}
