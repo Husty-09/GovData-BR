@@ -25,7 +25,6 @@ O GovData-BR resolve isso: uma interface visual que permite a qualquer pessoa, s
 - **TypeScript** (Strict mode)
 - **Tailwind CSS**
 - **Framer Motion**
-- **React Leaflet**
 - **HustyCore** (UI Components)
 - **API IBGE** (dados econômicos)
 
