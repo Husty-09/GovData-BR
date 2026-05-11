@@ -13,11 +13,10 @@ export async function buscarPIB(): Promise<ResultadoIBGE[]> {
   }
 }
 
-// TODO: endpoint retornando 500
-export async function buscarDesemprego(): Promise<unknown[]> {
+export async function buscarDesemprego(): Promise<ResultadoIBGE[]> {
   try {
     const resposta = await fetch(
-      "https://servicodados.ibge.gov.br/api/v3/agregados/6405/periodos/2022/variaveis/4097?localidades=N3[all]",
+      "https://servicodados.ibge.gov.br/api/v3/agregados/6318/periodos/20224/variaveis/4099?localidades=N3[all]",
     );
     const dados = await resposta.json();
     return dados;

@@ -127,7 +127,7 @@ const estados = [
 ];
 
 export default function Painel() {
-const [dados, setDados] = useState<{ pib: ResultadoIBGE[]; desemprego: unknown[] }>(
+const [dados, setDados] = useState<{ pib: ResultadoIBGE[]; desemprego: ResultadoIBGE[] }>(
     { pib: [], desemprego: [] },
   );
 
