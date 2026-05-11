@@ -33,7 +33,8 @@ const card: Variants = {
 
 const stack = [
   "Next.js 15", "React 18", "TypeScript", "Tailwind CSS",
-  "Framer Motion", "React ", "HustyCore UI",
+  "Framer Motion", "React ", "HustyCore UI", "d3-geo", 
+  "Vercel", "Vitest"
 ];
 
 const fontes = [

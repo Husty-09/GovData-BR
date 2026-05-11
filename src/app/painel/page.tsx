@@ -2,9 +2,10 @@
 
 import { motion, type Variants } from "framer-motion";
 import { useEffect, useState } from "react";
-import { buscarPIB, buscarDesemprego } from "@/lib/ibge";
+import { buscarPIB, buscarDesemprego, buscarPopulacao } from "@/lib/ibge";
 import MapaBrasil from "@/components/MapaBrasil";
-import type { ResultadoIBGE } from "@/lib/types";
+import { MotionDropdown } from "@/components/MotionDropdown";
+import type { ResultadoIBGE, DesempregoData, PopulacaoData } from "@/lib/types";
 
 const container: Variants = {
   hidden: {},
@@ -68,7 +69,7 @@ function CardMetrica({
         y: -3,
         transition: { type: "spring", stiffness: 300, damping: 24 },
       }}
-      className="relative overflow-hidden rounded-xl border backdrop-blur-md px-4 py-3 bg-white/2"
+      className="relative overflow-hidden rounded-xl border backdrop-blur-md px-5 py-4 bg-white/2"
       style={{
         borderColor: estilo.borderColor,
         boxShadow: estilo.boxShadow,
@@ -80,11 +81,11 @@ function CardMetrica({
         style={{ backgroundColor: estilo.hoverBg }}
       />
       <div className="absolute inset-0 bg-linear-to-br from-white/3 to-transparent pointer-events-none -z-10" />
-      <p className="text-[10px] text-neutral-500 uppercase tracking-widest mb-0.5">
+      <p className="text-[11px] text-neutral-500 uppercase tracking-widest mb-1">
         {titulo}
       </p>
       <p
-        className="text-xl font-extrabold tracking-tight"
+        className="text-2xl font-extrabold tracking-tight"
         style={{ color: estilo.accentColor }}
       >
         {valor}
@@ -127,16 +128,58 @@ const estados = [
 ];
 
 export default function Painel() {
-const [dados, setDados] = useState<{ pib: ResultadoIBGE[]; desemprego: unknown[] }>(
-    { pib: [], desemprego: [] },
-  );
+
+  const [estadoSelecionado, setEstadoSelecionado] = useState<string | null>(null);
+  const [anoSelecionado, setAnoSelecionado] = useState<string>("2023");
+
+  const [dados, setDados] = useState<{
+    pib: ResultadoIBGE[];
+    desemprego: DesempregoData;
+    populacao: PopulacaoData;
+  }>({ pib: [], desemprego: {}, populacao: {} });
 
   useEffect(() => {
     buscarPIB().then((pib) => setDados((prev) => ({ ...prev, pib })));
     buscarDesemprego().then((desemprego) =>
       setDados((prev) => ({ ...prev, desemprego })),
     );
+    buscarPopulacao().then((populacao) =>
+      setDados((prev) => ({ ...prev, populacao })),
+    );
   }, []);
+
+  // Anos disponíveis extraídos dinamicamente dos dados do PIB
+  const anosDisponiveis = Object.keys(
+    dados.pib[0]?.resultados[0]?.series[0]?.serie ?? {}
+  ).sort((a, b) => Number(b) - Number(a));
+
+  const itensDropdown = estados.map((e) => ({
+    label: `${e.nome} (${e.sigla})`,
+    value: e.sigla,
+    onClick: () => setEstadoSelecionado(e.nome),
+  }));
+
+  const itensAno = anosDisponiveis.map((ano) => ({
+    label: ano,
+    value: ano,
+    onClick: () => setAnoSelecionado(ano),
+  }));
+
+  function getIndicador(dataset: ResultadoIBGE[], nomeEstado: string, periodo: string): string {
+    if (!nomeEstado) return "—";
+    const series = dataset[0]?.resultados[0]?.series ?? [];
+    const serie = series.find((s) => s.localidade.nome === nomeEstado);
+    const valor = serie?.serie?.[periodo];
+    return valor ? Number(valor).toLocaleString("pt-BR") : "—";
+  }
+
+  const pibEstado = estadoSelecionado ? getIndicador(dados.pib, estadoSelecionado, anoSelecionado) : "—";
+  const desempregoEstado = estadoSelecionado
+    ? (dados.desemprego[anoSelecionado]?.[estadoSelecionado]?.toFixed(1) ?? "—") + "%"
+    : "—";
+  const populacaoEstado = estadoSelecionado
+    ? (dados.populacao[anoSelecionado]?.[estadoSelecionado]?.toLocaleString("pt-BR") ?? "—")
+    : "—";
 
   return (
     <main className="min-h-screen bg-[#0a0a0a] px-6 pt-28 pb-16">
@@ -184,60 +227,75 @@ const [dados, setDados] = useState<{ pib: ResultadoIBGE[]; desemprego: unknown[]
           </p>
         </motion.div>
 
-        {/* Cards de métricas — compactos */}
-        <motion.div
-          variants={item}
-          className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6"
-        >
-          <CardMetrica
-            titulo="Estados"
-            valor="27"
-            descricao="todas as UFs"
-            cor="verde"
-          />
-          <CardMetrica
-            titulo="Indicadores IBGE"
-            valor="12"
-            descricao="séries históricas"
-            cor="amarelo"
-          />
-          <CardMetrica titulo="Mandatos" valor="—" descricao="a integrar" />
-          <CardMetrica titulo="Período" valor="—" descricao="a integrar" />
-        </motion.div>
-
-        {/* Área principal: mapa maior + lista lateral */}
+        {/*Layout principal:*/}
         <motion.div
           variants={item}
           className="grid grid-cols-1 lg:grid-cols-4 gap-6"
         >
-          {/* Mapa — 3/4 */}
+          {/* Mapa — 3/4 da largura */}
           <div
             className="lg:col-span-3 rounded-2xl border border-white/8 bg-white/2 backdrop-blur-md overflow-hidden flex items-center justify-center"
             style={{ minHeight: "520px" }}
           >
-            <MapaBrasil dados={dados.pib} />
+            <MapaBrasil
+              dados={dados.pib}
+              estadoSelecionado={estadoSelecionado}
+              onEstadoClick={setEstadoSelecionado}
+              ano={anoSelecionado}
+            />
           </div>
 
-          {/* Lista lateral — 1/4 */}
-          <div
-            className="rounded-2xl border border-white/8 bg-white/2 backdrop-blur-md p-4 overflow-y-auto"
-            style={{ maxHeight: "520px" }}
-          >
-            <h2 className="text-[10px] font-semibold text-neutral-500 uppercase tracking-widest mb-3">
-              Estados
-            </h2>
-            <div className="space-y-0.5">
-              {estados.map((e) => (
-                <button
-                  key={e.sigla}
-                  className="w-full flex justify-between items-center text-xs py-1.5 px-2 rounded-lg border border-transparent text-neutral-400 hover:border-white/8 hover:bg-white/4 hover:text-neutral-200 transition-all duration-150"
-                >
-                  <span>{e.nome}</span>
-                  <span className="text-neutral-600 font-mono text-[10px]">
-                    {e.sigla}
-                  </span>
-                </button>
-              ))}
+          {/* Coluna direita — dropdown + cards */}
+          <div className="flex flex-col gap-4">
+            {/* Dropdown de estados */}
+            <div>
+              <p className="text-[10px] text-neutral-500 uppercase tracking-widest mb-2">
+                Estado
+              </p>
+              {/* label dinâmico: mostra o estado escolhido ou texto padrão */}
+              <MotionDropdown
+                label={estadoSelecionado ?? "Selecionar estado"}
+                items={itensDropdown}
+                className="w-full"
+              />
+            </div>
+
+            {/* Seletor de ano */}
+            <div>
+              <p className="text-[10px] text-neutral-500 uppercase tracking-widest mb-2">
+                Ano
+              </p>
+              <MotionDropdown
+                label={anoSelecionado}
+                items={itensAno}
+                className="w-full"
+              />
+            </div>
+
+            {/* Cards de indicadores do estado selecionado */}
+            <div className="flex flex-col gap-3">
+              <CardMetrica
+                titulo="PIB"
+                valor={pibEstado}
+                descricao={estadoSelecionado ? `R$ milhões (${anoSelecionado})` : "selecione um estado"}
+                cor="verde"
+              />
+              <CardMetrica
+                titulo="População"
+                valor={populacaoEstado}
+                descricao={estadoSelecionado ? `habitantes (${anoSelecionado})` : "selecione um estado"}
+              />
+              <CardMetrica
+                titulo="Desemprego"
+                valor={desempregoEstado}
+                descricao={estadoSelecionado ? `taxa % (${anoSelecionado} T4)` : "selecione um estado"}
+                cor="amarelo"
+              />
+              <CardMetrica
+                titulo="Mandato Político"
+                valor="—"
+                descricao="a integrar"
+              />
             </div>
           </div>
         </motion.div>
