@@ -129,9 +129,8 @@ const estados = [
 
 export default function Painel() {
 
-  const [estadoSelecionado, setEstadoSelecionado] = useState<string | null>(
-    null,
-  );
+  const [estadoSelecionado, setEstadoSelecionado] = useState<string | null>(null);
+  const [anoSelecionado, setAnoSelecionado] = useState<string>("2023");
 
   const [dados, setDados] = useState<{
     pib: ResultadoIBGE[];
@@ -145,11 +144,34 @@ export default function Painel() {
     );
   }, []);
 
+  // Anos disponíveis extraídos dinamicamente dos dados do PIB
+  const anosDisponiveis = Object.keys(
+    dados.pib[0]?.resultados[0]?.series[0]?.serie ?? {}
+  ).sort((a, b) => Number(b) - Number(a));
+
   const itensDropdown = estados.map((e) => ({
     label: `${e.nome} (${e.sigla})`,
     value: e.sigla,
     onClick: () => setEstadoSelecionado(e.nome),
   }));
+
+  const itensAno = anosDisponiveis.map((ano) => ({
+    label: ano,
+    value: ano,
+    onClick: () => setAnoSelecionado(ano),
+  }));
+
+  function getIndicador(dataset: ResultadoIBGE[], nomeEstado: string, periodo: string): string {
+    if (!nomeEstado) return "—";
+    const series = dataset[0]?.resultados[0]?.series ?? [];
+    const serie = series.find((s) => s.localidade.nome === nomeEstado);
+    const valor = serie?.serie?.[periodo];
+    return valor ? Number(valor).toLocaleString("pt-BR") : "—";
+  }
+
+  const periodoDesemprego = `${anoSelecionado}4`; // sempre Q4
+  const pibEstado = estadoSelecionado ? getIndicador(dados.pib, estadoSelecionado, anoSelecionado) : "—";
+  const desempregoEstado = estadoSelecionado ? getIndicador(dados.desemprego, estadoSelecionado, periodoDesemprego) : "—";
 
   return (
     <main className="min-h-screen bg-[#0a0a0a] px-6 pt-28 pb-16">
@@ -211,6 +233,7 @@ export default function Painel() {
               dados={dados.pib}
               estadoSelecionado={estadoSelecionado}
               onEstadoClick={setEstadoSelecionado}
+              ano={anoSelecionado}
             />
           </div>
 
@@ -229,23 +252,42 @@ export default function Painel() {
               />
             </div>
 
-            {/* Cards de métricas */}
+            {/* Seletor de ano */}
+            <div>
+              <p className="text-[10px] text-neutral-500 uppercase tracking-widest mb-2">
+                Ano
+              </p>
+              <MotionDropdown
+                label={anoSelecionado}
+                items={itensAno}
+                className="w-full"
+              />
+            </div>
+
+            {/* Cards de indicadores do estado selecionado */}
             <div className="flex flex-col gap-3">
               <CardMetrica
-                titulo="Estados"
-                valor="27"
-                descricao="todas as UFs"
+                titulo="PIB"
+                valor={pibEstado}
+                descricao={estadoSelecionado ? `R$ milhões (${anoSelecionado})` : "selecione um estado"}
                 cor="verde"
               />
               <CardMetrica
-                titulo="Indicadores IBGE"
-                valor="12"
-                descricao="séries históricas"
+                titulo="Desemprego"
+                valor={desempregoEstado}
+                descricao={estadoSelecionado ? `taxa % (${anoSelecionado} T4)` : "selecione um estado"}
                 cor="amarelo"
               />
-              <CardMetrica titulo="Mandatos" valor="—" descricao="a integrar" />
-
-              <CardMetrica titulo="Período" valor="—" descricao="a integrar" />
+              <CardMetrica
+                titulo="População"
+                valor="—"
+                descricao="a integrar"
+              />
+              <CardMetrica
+                titulo="Mandato Político"
+                valor="—"
+                descricao="a integrar"
+              />
             </div>
           </div>
         </motion.div>

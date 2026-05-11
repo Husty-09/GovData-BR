@@ -9,10 +9,12 @@ export default function MapaBrasil({
   dados,
   estadoSelecionado,
   onEstadoClick,
+  ano,
 }: {
   dados: ResultadoIBGE[];
   estadoSelecionado?: string | null;
   onEstadoClick?: (nome: string) => void;
+  ano: string;
 }) {
   const [mapa, setMapa] = useState<FeatureCollection | null>(null);
   const tooltipRef = useRef<SVGForeignObjectElement>(null);
@@ -32,7 +34,7 @@ export default function MapaBrasil({
   function getPIB(nomeEstado: string): number {
     const series = dados[0]?.resultados[0]?.series ?? [];
     const serie = series.find((s) => s.localidade.nome === nomeEstado);
-    return Number(serie?.serie?.["2023"] ?? 0);
+    return Number(serie?.serie?.[ano] ?? 0);
   }
 
   const pibMax = Math.max(
@@ -69,17 +71,22 @@ export default function MapaBrasil({
               style={{
                 cursor: "pointer",
                 transition: "filter 0.3s ease",
-                filter: estadoSelecionado === (estado.properties as { name: string }).name
-                  ? "brightness(1.8) drop-shadow(0 0 6px rgba(0,180,70,0.8))"
-                  : "brightness(1)",
+                filter:
+                  estadoSelecionado ===
+                  (estado.properties as { name: string }).name
+                    ? "brightness(1.8) drop-shadow(0 0 6px rgba(0,180,70,0.8))"
+                    : "brightness(1)",
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.filter = "brightness(1.6)";
                 const nome = (estado.properties as { name: string }).name;
                 const pib = getPIB(nome);
-                if (tooltipRef.current) tooltipRef.current.style.display = "block";
-                if (tooltipNomeRef.current) tooltipNomeRef.current.textContent = nome;
-                if (tooltipPibRef.current) tooltipPibRef.current.textContent = `PIB: R$ ${pib.toLocaleString("pt-BR")}`;
+                if (tooltipRef.current)
+                  tooltipRef.current.style.display = "block";
+                if (tooltipNomeRef.current)
+                  tooltipNomeRef.current.textContent = nome;
+                if (tooltipPibRef.current)
+                  tooltipPibRef.current.textContent = `PIB (${ano}): R$ ${pib.toLocaleString("pt-BR")}`;
               }}
               onMouseMove={(e) => {
                 const rect = e.currentTarget.closest("svg")!.getBoundingClientRect();
@@ -100,7 +107,8 @@ export default function MapaBrasil({
                   estadoSelecionado === nome
                     ? "brightness(1.8) drop-shadow(0 0 6px rgba(0,180,70,0.8))"
                     : "brightness(1)";
-                if (tooltipRef.current) tooltipRef.current.style.display = "none";
+                if (tooltipRef.current)
+                  tooltipRef.current.style.display = "none";
               }}
               onClick={() => {
                 const nome = (estado.properties as { name: string }).name;
@@ -112,7 +120,7 @@ export default function MapaBrasil({
             ref={tooltipRef}
             x={0}
             y={0}
-            width="180"
+            width="190"
             height="60"
             style={{ display: "none", pointerEvents: "none" }}
           >
@@ -124,8 +132,14 @@ export default function MapaBrasil({
                 padding: "6px 10px",
               }}
             >
-              <p ref={tooltipNomeRef} style={{ color: "#fff", fontSize: 12, fontWeight: 700, margin: 0 }} />
-              <p ref={tooltipPibRef} style={{ color: "#00b341", fontSize: 11, margin: "2px 0 0" }} />
+              <p
+                ref={tooltipNomeRef}
+                style={{ color: "#fff", fontSize: 12, fontWeight: 700, margin: 0 }}
+              />
+              <p
+                ref={tooltipPibRef}
+                style={{ color: "#00b341", fontSize: 11, margin: "2px 0 0" }}
+              />
             </div>
           </foreignObject>
         </svg>
