@@ -14,8 +14,6 @@ O Brasil produz dados públicos ricos — mas espalhados, difíceis de acessar e
 
 O GovData-BR resolve isso: uma interface visual que permite a qualquer pessoa, sem conhecimento técnico, explorar indicadores econômicos reais por estado e cruzá-los com os mandatos políticos de cada período. Dados públicos, apresentados com clareza.
 
-## 🚀 Deploy
-
 # GovData-BR
 
 ![Next.js](https://img.shields.io/badge/Next.js-15%2B-black?style=flat&logo=next.js)
