@@ -37,6 +37,8 @@ export default function MapaBrasil({ dados }: { dados: ResultadoIBGE[] }) {
     <svg width="800" height="600">
       {mapa.features.map((estado, i) => (
         <path
+          stroke="#0a0a0a"
+          strokeWidth={0.2}
           key={i}
           d={caminho(estado) ?? undefined}
           fill={`rgba(0, 156, 59, ${0.15 + 0.85 * (getPIB((estado.properties as { name: string }).name) / pibMax)})`}
@@ -44,14 +46,24 @@ export default function MapaBrasil({ dados }: { dados: ResultadoIBGE[] }) {
             const nome = (estado.properties as { name: string }).name;
             const pib = getPIB(nome);
             if (tooltipRef.current) tooltipRef.current.style.display = "block";
-            if (tooltipNomeRef.current) tooltipNomeRef.current.textContent = nome;
-            if (tooltipPibRef.current) tooltipPibRef.current.textContent = `PIB: R$ ${pib.toLocaleString("pt-BR")}`;
+            if (tooltipNomeRef.current)
+              tooltipNomeRef.current.textContent = nome;
+            if (tooltipPibRef.current)
+              tooltipPibRef.current.textContent = `PIB: R$ ${pib.toLocaleString("pt-BR")}`;
           }}
           onMouseMove={(e) => {
-            const rect = e.currentTarget.closest("svg")!.getBoundingClientRect();
+            const rect = e.currentTarget
+              .closest("svg")!
+              .getBoundingClientRect();
             if (tooltipRef.current) {
-              tooltipRef.current.setAttribute("x", String(e.clientX - rect.left + 10));
-              tooltipRef.current.setAttribute("y", String(e.clientY - rect.top - 30));
+              tooltipRef.current.setAttribute(
+                "x",
+                String(e.clientX - rect.left + 10),
+              );
+              tooltipRef.current.setAttribute(
+                "y",
+                String(e.clientY - rect.top - 30),
+              );
             }
           }}
           onMouseLeave={() => {
@@ -81,8 +93,14 @@ export default function MapaBrasil({ dados }: { dados: ResultadoIBGE[] }) {
             padding: "6px 10px",
           }}
         >
-          <p ref={tooltipNomeRef} style={{ color: "#fff", fontSize: 12, fontWeight: 700, margin: 0 }} />
-          <p ref={tooltipPibRef} style={{ color: "#00b341", fontSize: 11, margin: "2px 0 0" }} />
+          <p
+            ref={tooltipNomeRef}
+            style={{ color: "#fff", fontSize: 12, fontWeight: 700, margin: 0 }}
+          />
+          <p
+            ref={tooltipPibRef}
+            style={{ color: "#00b341", fontSize: 11, margin: "2px 0 0" }}
+          />
         </div>
       </foreignObject>
     </svg>
