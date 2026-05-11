@@ -1,6 +1,9 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
+import { useEffect, useState } from "react";
+import { buscarPIB, buscarDesemprego } from "@/lib/ibge";
+
 
 const container: Variants = {
   hidden: {},
@@ -90,6 +93,13 @@ const estados = [
 ];
 
 export default function Painel() {
+  const [dados, setDados] = useState<{ pib: unknown[]; desemprego: unknown[] }>({ pib: [], desemprego: [] });
+
+  useEffect(() => {
+    buscarPIB().then((pib) => setDados((prev) => ({ ...prev, pib })));
+    buscarDesemprego().then((desemprego) => setDados((prev) => ({ ...prev, desemprego })));
+  }, []);
+
   return (
     <main className="min-h-screen bg-[#0a0a0a] px-6 pt-28 pb-16">
 
