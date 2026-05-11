@@ -160,7 +160,7 @@ export default function Painel() {
           >
             <div className="text-center text-neutral-600">
               <div className="text-4xl mb-3">🗺️</div>
-              <p className="text-sm">Mapa interativo — React Leaflet</p>
+              <p className="text-sm">Mapa interativo</p>
               <p className="text-xs text-neutral-700 mt-1">componente a integrar</p>
             </div>
           </div>
