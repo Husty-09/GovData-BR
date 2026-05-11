@@ -5,7 +5,15 @@ import { geoPath, geoMercator } from "d3-geo";
 import type { FeatureCollection } from "geojson";
 import type { ResultadoIBGE } from "@/lib/types";
 
-export default function MapaBrasil({ dados }: { dados: ResultadoIBGE[] }) {
+export default function MapaBrasil({
+  dados,
+  estadoSelecionado,
+  onEstadoClick,
+}: {
+  dados: ResultadoIBGE[];
+  estadoSelecionado?: string | null;
+  onEstadoClick?: (nome: string) => void;
+}) {
   const [mapa, setMapa] = useState<FeatureCollection | null>(null);
   const tooltipRef = useRef<SVGForeignObjectElement>(null);
   const tooltipNomeRef = useRef<HTMLParagraphElement>(null);
@@ -58,6 +66,13 @@ export default function MapaBrasil({ dados }: { dados: ResultadoIBGE[] }) {
               strokeWidth={0.2}
               d={caminho(estado) ?? undefined}
               fill={`rgba(0, 156, 59, ${0.15 + 0.85 * (getPIB((estado.properties as { name: string }).name) / pibMax)})`}
+              style={{
+                cursor: "pointer",
+                transition: "filter 0.3s ease",
+                filter: estadoSelecionado === (estado.properties as { name: string }).name
+                  ? "brightness(1.8) drop-shadow(0 0 6px rgba(0,180,70,0.8))"
+                  : "brightness(1)",
+              }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.filter = "brightness(1.6)";
                 const nome = (estado.properties as { name: string }).name;
@@ -80,14 +95,16 @@ export default function MapaBrasil({ dados }: { dados: ResultadoIBGE[] }) {
                 }
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.filter = "brightness(1)";
+                const nome = (estado.properties as { name: string }).name;
+                e.currentTarget.style.filter =
+                  estadoSelecionado === nome
+                    ? "brightness(1.8) drop-shadow(0 0 6px rgba(0,180,70,0.8))"
+                    : "brightness(1)";
                 if (tooltipRef.current) tooltipRef.current.style.display = "none";
               }}
-              style={{ cursor: "pointer", transition: "filter 0.3s ease" }}
               onClick={() => {
                 const nome = (estado.properties as { name: string }).name;
-                const pib = getPIB(nome);
-                alert(`Estado: ${nome}\nPIB: R$ ${pib.toLocaleString("pt-BR")}`);
+                onEstadoClick?.(nome);
               }}
             />
           ))}

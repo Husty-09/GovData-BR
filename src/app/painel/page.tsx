@@ -207,7 +207,11 @@ export default function Painel() {
             className="lg:col-span-3 rounded-2xl border border-white/8 bg-white/2 backdrop-blur-md overflow-hidden flex items-center justify-center"
             style={{ minHeight: "520px" }}
           >
-            <MapaBrasil dados={dados.pib} />
+            <MapaBrasil
+              dados={dados.pib}
+              estadoSelecionado={estadoSelecionado}
+              onEstadoClick={setEstadoSelecionado}
+            />
           </div>
 
           {/* Coluna direita — dropdown + cards */}
