@@ -1,4 +1,6 @@
-export async function buscarPIB(): Promise<unknown[]> {
+import type { ResultadoIBGE } from "./types";
+
+export async function buscarPIB(): Promise<ResultadoIBGE[]> {
   try {
     const resposta = await fetch(
       "https://servicodados.ibge.gov.br/api/v3/agregados/5938/periodos/all/variaveis/37?localidades=N3[all]",
