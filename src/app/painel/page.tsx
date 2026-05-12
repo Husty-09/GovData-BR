@@ -6,7 +6,7 @@ import { buscarPIB, buscarDesemprego, buscarPopulacao, buscarBrasil } from "@/li
 import MapaBrasil from "@/components/MapaBrasil";
 import { MotionDropdown } from "@/components/MotionDropdown";
 import type { ResultadoIBGE, DesempregoData, PopulacaoData, BrasilData } from "@/lib/types";
-import { GOVERNADORES, PRESIDENTE } from "@/lib/politicos";
+import { getPresidente, getGovernador } from "@/lib/politicos";
 
 const container: Variants = {
   hidden: {},
@@ -106,7 +106,9 @@ export default function Painel() {
     ? (brasilAno?.populacao != null ? Number(brasilAno.populacao).toLocaleString("pt-BR") : "—")
     : (dados.populacao[anoSelecionado]?.[localidade]?.toLocaleString("pt-BR") ?? "—");
 
-  const governador = siglaUF && siglaUF !== "BR" ? (GOVERNADORES[siglaUF] ?? null) : null;
+  const ano = Number(anoSelecionado);
+  const governador = siglaUF && siglaUF !== "BR" ? getGovernador(siglaUF, ano) : null;
+  const presidente = ehBrasil ? getPresidente(ano) : null;
 
   return (
     <main className="min-h-screen bg-[#0a0a0a] px-6 pt-28 pb-16">
@@ -146,15 +148,15 @@ export default function Painel() {
                     <div>
                       <p className="text-xs text-neutral-500 uppercase tracking-widest mb-3">Executivo Federal</p>
                       <p className="text-xs text-neutral-600 uppercase tracking-widest mb-0.5">Presidente</p>
-                      <p className="text-sm font-bold text-neutral-200 leading-tight">{PRESIDENTE.nome}</p>
-                      <p className="text-xs text-neutral-500 mt-0.5">{PRESIDENTE.partido} {PRESIDENTE.mandato}</p>
+                      <p className="text-sm font-bold text-neutral-200 leading-tight">{presidente?.nome ?? "—"}</p>
+                      <p className="text-xs text-neutral-500 mt-0.5">{presidente ? presidente.partido + " " + presidente.inicio + "–" + presidente.fim : "sem dados"}</p>
                     </div>
                   ) : governador ? (
                     <div>
                       <p className="text-xs text-neutral-500 uppercase tracking-widest mb-3">Executivo Estadual</p>
                       <p className="text-xs text-neutral-600 uppercase tracking-widest mb-0.5">Governador(a)</p>
                       <p className="text-sm font-bold text-neutral-200 leading-tight">{governador.nome}</p>
-                      <p className="text-xs text-neutral-500 mt-0.5">{governador.partido} {governador.mandato}</p>
+                      <p className="text-xs text-neutral-500 mt-0.5">{governador.partido} {governador.inicio}–{governador.fim}</p>
                     </div>
                   ) : null}
                 </motion.div>
