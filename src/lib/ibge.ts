@@ -1,47 +1,35 @@
 import type { ResultadoIBGE, DesempregoData, PopulacaoData, BrasilData} from "./types";
 
 export async function buscarPIB(): Promise<ResultadoIBGE[]> {
-  try {
-    const resposta = await fetch(
-      "https://servicodados.ibge.gov.br/api/v3/agregados/5938/periodos/all/variaveis/37?localidades=N3[all]",
-    );
-    const dados = await resposta.json();
-    return dados;
-  } catch (error) {
-    console.error("Erro ao buscar PIB:", error);
-    return [];
+  const resposta = await fetch(
+    "https://servicodados.ibge.gov.br/api/v3/agregados/5938/periodos/all/variaveis/37?localidades=N3[all]",
+  );
+  if (!resposta.ok) {
+    throw new Error(`Erro ao buscar PIB: HTTP ${resposta.status}`);
   }
+  return resposta.json();
 }
 
 export async function buscarDesemprego(): Promise<DesempregoData> {
-  try {
-    const resposta = await fetch("/desemprego.json");
-    const dados = await resposta.json();
-    return dados;
-  } catch (error) {
-    console.error("Erro ao buscar Desemprego:", String(error));
-    return {};
+  const resposta = await fetch("/desemprego.json");
+  if (!resposta.ok) {
+    throw new Error(`Erro ao buscar Desemprego: HTTP ${resposta.status}`);
   }
+  return resposta.json();
 }
 
 export async function buscarPopulacao(): Promise<PopulacaoData> {
-  try {
-    const resposta = await fetch("/populacao.json");
-    const dados = await resposta.json();
-    return dados;
-  } catch (error) {
-    console.error("Erro ao buscar População:", String(error));
-    return {};
+  const resposta = await fetch("/populacao.json");
+  if (!resposta.ok) {
+    throw new Error(`Erro ao buscar População: HTTP ${resposta.status}`);
   }
+  return resposta.json();
 }
 
 export async function buscarBrasil(): Promise<BrasilData> {
-  try {
-    const resposta = await fetch("/brasil.json");
-    const dados = await resposta.json();
-    return dados;
-  } catch (error) {
-    console.error("Erro ao buscar dados do Brasil:", String(error));
-    return {};
+  const resposta = await fetch("/brasil.json");
+  if (!resposta.ok) {
+    throw new Error(`Erro ao buscar dados do Brasil: HTTP ${resposta.status}`);
   }
+  return resposta.json();
 }

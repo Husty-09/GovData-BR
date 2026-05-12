@@ -3,6 +3,7 @@ import { buscarPIB } from "../lib/ibge";
 
 beforeEach(() => {
   vi.spyOn(global, "fetch").mockResolvedValue({
+    ok: true,
     json: async () => [
       {
         resultados: [
@@ -25,8 +26,12 @@ test("buscarPIB deve retornar os dados do IBGE", async function () {
   expect(data[0].resultados[0].series[0].serie["2023"]).toBe("100000");
 });
 
-test("buscarPIB deve retornar [] quando fetch falha", async function () {
+test("buscarPIB deve lançar erro quando fetch falha por rede", async function () {
   vi.spyOn(global, "fetch").mockRejectedValue(new Error("Erro de rede"));
-  const data = await buscarPIB();
-  expect(data).toEqual([]);
+  await expect(buscarPIB()).rejects.toThrow("Erro de rede");
+});
+
+test("buscarPIB deve lançar erro quando resposta HTTP não é ok", async function () {
+  vi.spyOn(global, "fetch").mockResolvedValue({ ok: false, status: 500 } as Response);
+  await expect(buscarPIB()).rejects.toThrow("HTTP 500");
 });
