@@ -10,3 +10,5 @@ export interface ResultadoIBGE {
 export type DesempregoData = Record<string, Record<string, number>>;
 
 export type PopulacaoData = Record<string, Record<string, number>>;
+
+export type BrasilData = Record<string, Record<string, number>>;

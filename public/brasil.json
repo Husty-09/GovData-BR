@@ -1,0 +1,127 @@
+{
+  "_fonte": {
+    "descricao": "Indicadores nacionais do Brasil — IBGE",
+    "pib": "Agregado 5938, variável 37 — R$ milhões correntes",
+    "desemprego": {
+      "2002-2011": "PNAD anual — médias nacionais oficiais IBGE (metodologia anterior)",
+      "2012-2023": "PNADC Q4 — Agregado 4093, variável 4099"
+    },
+    "populacao": {
+      "2002-2006,2008-2009,2011-2021": "Estimativas anuais — Agregado 6579",
+      "2007": "Contagem da População — Agregado 793",
+      "2010": "Censo — Agregado 202",
+      "2022": "Censo — Agregado 9514",
+      "2023": "Interpolado entre Censo 2022 e estimativa 2024"
+    }
+  },
+  "2002": {
+    "pib": 1488787276,
+    "desemprego": 11.7,
+    "populacao": 174632960
+  },
+  "2003": {
+    "pib": 1717950386,
+    "desemprego": 12.3,
+    "populacao": 176871437
+  },
+  "2004": {
+    "pib": 1957751224,
+    "desemprego": 11.5,
+    "populacao": 181569056
+  },
+  "2005": {
+    "pib": 2170584503,
+    "desemprego": 9.8,
+    "populacao": 184184264
+  },
+  "2006": {
+    "pib": 2409449916,
+    "desemprego": 10.0,
+    "populacao": 186770562
+  },
+  "2007": {
+    "pib": 2720262951,
+    "desemprego": 9.3,
+    "populacao": 183987291
+  },
+  "2008": {
+    "pib": 3109803097,
+    "desemprego": 7.9,
+    "populacao": 189605006
+  },
+  "2009": {
+    "pib": 3333039339,
+    "desemprego": 8.1,
+    "populacao": 191480630
+  },
+  "2010": {
+    "pib": 3885847000,
+    "desemprego": 6.7,
+    "populacao": 190755799
+  },
+  "2011": {
+    "pib": 4376382000,
+    "desemprego": 6.0,
+    "populacao": 192379287
+  },
+  "2012": {
+    "pib": 4814760000,
+    "desemprego": 6.9,
+    "populacao": 193904015
+  },
+  "2013": {
+    "pib": 5331618957,
+    "desemprego": 6.2,
+    "populacao": 201032714
+  },
+  "2014": {
+    "pib": 5778952780,
+    "desemprego": 6.6,
+    "populacao": 202768562
+  },
+  "2015": {
+    "pib": 5995787000,
+    "desemprego": 9.1,
+    "populacao": 204450049
+  },
+  "2016": {
+    "pib": 6269328000,
+    "desemprego": 12.1,
+    "populacao": 206081432
+  },
+  "2017": {
+    "pib": 6585479000,
+    "desemprego": 11.9,
+    "populacao": 207660929
+  },
+  "2018": {
+    "pib": 7004141000,
+    "desemprego": 11.7,
+    "populacao": 208494900
+  },
+  "2019": {
+    "pib": 7389131000,
+    "desemprego": 11.1,
+    "populacao": 210147125
+  },
+  "2020": {
+    "pib": 7609597000,
+    "desemprego": 14.2,
+    "populacao": 211755692
+  },
+  "2021": {
+    "pib": 9012142000,
+    "desemprego": 11.1,
+    "populacao": 213317639
+  },
+  "2022": {
+    "pib": 10079676378,
+    "desemprego": 7.9,
+    "populacao": 203080756
+  },
+  "2023": {
+    "pib": 10943345439,
+    "desemprego": 7.4,
+    "populacao": 207832253
+  }
+}

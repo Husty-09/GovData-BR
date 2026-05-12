@@ -1,4 +1,4 @@
-import type { ResultadoIBGE, DesempregoData, PopulacaoData } from "./types";
+import type { ResultadoIBGE, DesempregoData, PopulacaoData, BrasilData} from "./types";
 
 export async function buscarPIB(): Promise<ResultadoIBGE[]> {
   try {
@@ -31,6 +31,17 @@ export async function buscarPopulacao(): Promise<PopulacaoData> {
     return dados;
   } catch (error) {
     console.error("Erro ao buscar População:", String(error));
+    return {};
+  }
+}
+
+export async function buscarBrasil(): Promise<BrasilData> {
+  try {
+    const resposta = await fetch("/brasil.json");
+    const dados = await resposta.json();
+    return dados;
+  } catch (error) {
+    console.error("Erro ao buscar dados do Brasil:", String(error));
     return {};
   }
 }

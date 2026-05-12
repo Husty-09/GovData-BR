@@ -126,7 +126,7 @@ export default function Sobre() {
         >
           Plataforma de visualização de dados que cruza indicadores econômicos
           do IBGE com mandatos políticos brasileiros. O objetivo é facilitar
-          a análise histórica do impacto de gestões públicas nos estados
+          a análise histórica do impacto de gestões públicas no pais
           brasileiros, tornando dados complexos acessíveis a qualquer cidadão.
         </motion.p>
 
