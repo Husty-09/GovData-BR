@@ -1,23 +1,10 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import { useEffect, useState } from "react";
-import {
-  buscarPIB,
-  buscarDesemprego,
-  buscarPopulacao,
-  buscarBrasil,
-} from "@/lib/ibge";
+import { usePainelData } from "@/hooks/usePainelData";
 import MapaBrasil from "@/components/MapaBrasil";
 import { MotionDropdown } from "@/components/MotionDropdown";
 import { CardMetrica } from "@/components/CardMetrica";
-import type {
-  ResultadoIBGE,
-  DesempregoData,
-  PopulacaoData,
-  BrasilData,
-} from "@/lib/types";
-import { getPresidente, getGovernador } from "@/lib/politicos";
 
 const container: Variants = {
   hidden: {},
@@ -32,122 +19,21 @@ const item: Variants = {
   },
 };
 
-const Localidade = [
-  { nome: "Brasil", sigla: "BR" },
-  { nome: "Acre", sigla: "AC" },
-  { nome: "Alagoas", sigla: "AL" },
-  { nome: "Amapá", sigla: "AP" },
-  { nome: "Amazonas", sigla: "AM" },
-  { nome: "Bahia", sigla: "BA" },
-  { nome: "Ceará", sigla: "CE" },
-  { nome: "Distrito Federal", sigla: "DF" },
-  { nome: "Espírito Santo", sigla: "ES" },
-  { nome: "Goiás", sigla: "GO" },
-  { nome: "Maranhão", sigla: "MA" },
-  { nome: "Mato Grosso", sigla: "MT" },
-  { nome: "Mato Grosso do Sul", sigla: "MS" },
-  { nome: "Minas Gerais", sigla: "MG" },
-  { nome: "Pará", sigla: "PA" },
-  { nome: "Paraíba", sigla: "PB" },
-  { nome: "Paraná", sigla: "PR" },
-  { nome: "Pernambuco", sigla: "PE" },
-  { nome: "Piauí", sigla: "PI" },
-  { nome: "Rio de Janeiro", sigla: "RJ" },
-  { nome: "Rio Grande do Norte", sigla: "RN" },
-  { nome: "Rio Grande do Sul", sigla: "RS" },
-  { nome: "Rondônia", sigla: "RO" },
-  { nome: "Roraima", sigla: "RR" },
-  { nome: "Santa Catarina", sigla: "SC" },
-  { nome: "São Paulo", sigla: "SP" },
-  { nome: "Sergipe", sigla: "SE" },
-  { nome: "Tocantins", sigla: "TO" },
-];
-
 export default function Painel() {
-  const [localidade, setLocalidade] = useState<string | null>("Brasil");
-  const [anoSelecionado, setAnoSelecionado] = useState<string>("2023");
-  const [dados, setDados] = useState<{
-    brasil: BrasilData;
-    pib: ResultadoIBGE[];
-    desemprego: DesempregoData;
-    populacao: PopulacaoData;
-  }>({ brasil: {}, pib: [], desemprego: {}, populacao: {} });
-
-  useEffect(() => {
-    buscarPIB().then((pib) => setDados((p) => ({ ...p, pib })));
-    buscarDesemprego().then((desemprego) =>
-      setDados((p) => ({ ...p, desemprego })),
-    );
-    buscarPopulacao().then((populacao) =>
-      setDados((p) => ({ ...p, populacao })),
-    );
-    buscarBrasil().then((brasil) => setDados((p) => ({ ...p, brasil })));
-  }, []);
-
-  const siglaUF = Localidade.find((l) => l.nome === localidade)?.sigla ?? null;
-  const anosDisponiveis = Object.keys(
-    dados.pib[0]?.resultados[0]?.series[0]?.serie ?? {},
-  ).sort((a, b) => Number(b) - Number(a));
-  const itensDropdown = Localidade.map((e) => ({
-    label: e.nome + " (" + e.sigla + ")",
-    value: e.sigla,
-    onClick: () => setLocalidade(e.nome),
-  }));
-  const itensAno = anosDisponiveis.map((ano) => ({
-    label: ano,
-    value: ano,
-    onClick: () => setAnoSelecionado(ano),
-  }));
-
-  function getIndicador(
-    dataset: ResultadoIBGE[],
-    nomeLocalidade: string,
-    periodo: string,
-  ): string {
-    if (!nomeLocalidade) return "—";
-    const serie = (dataset[0]?.resultados[0]?.series ?? []).find(
-      (s) => s.localidade.nome === nomeLocalidade,
-    );
-    const valor = serie?.serie?.[periodo];
-    return valor ? Number(valor).toLocaleString("pt-BR") : "—";
-  }
-
-  const ehBrasil = localidade === "Brasil";
-  const brasilAno = dados.brasil[anoSelecionado] as
-    | Record<string, number>
-    | undefined;
-
-  const pibLocalidade = !localidade
-    ? "—"
-    : ehBrasil
-      ? brasilAno?.pib != null
-        ? Number(brasilAno.pib).toLocaleString("pt-BR")
-        : "—"
-      : getIndicador(dados.pib, localidade, anoSelecionado);
-
-  const desempregoLocalidade = !localidade
-    ? "—"
-    : ehBrasil
-      ? brasilAno?.desemprego != null
-        ? Number(brasilAno.desemprego).toFixed(1) + "%"
-        : "—"
-      : (dados.desemprego[anoSelecionado]?.[localidade]?.toFixed(1) ?? "—") +
-        "%";
-
-  const populacaoLocalidade = !localidade
-    ? "—"
-    : ehBrasil
-      ? brasilAno?.populacao != null
-        ? Number(brasilAno.populacao).toLocaleString("pt-BR")
-        : "—"
-      : (dados.populacao[anoSelecionado]?.[localidade]?.toLocaleString(
-          "pt-BR",
-        ) ?? "—");
-
-  const ano = Number(anoSelecionado);
-  const governador =
-    siglaUF && siglaUF !== "BR" ? getGovernador(siglaUF, ano) : null;
-  const presidente = ehBrasil ? getPresidente(ano) : null;
+  const {
+    localidade,
+    setLocalidade,
+    anoSelecionado,
+    dados,
+    ehBrasil,
+    itensDropdown,
+    itensAno,
+    pibLocalidade,
+    desempregoLocalidade,
+    populacaoLocalidade,
+    governador,
+    presidente,
+  } = usePainelData();
 
   return (
     <main className="min-h-screen bg-[#0a0a0a] px-6 pt-28 pb-16">
@@ -186,8 +72,8 @@ export default function Painel() {
             </span>
           </div>
           <p className="text-sm text-neutral-500">
-            Dados do IBGE cruzados com mandatos politicos brasileiros por
-            Localidade e Ano
+            Dados do IBGE cruzados com mandatos políticos brasileiros por
+            localidade e ano
           </p>
         </motion.div>
 
@@ -235,17 +121,17 @@ export default function Painel() {
                 valor={pibLocalidade}
                 descricao={
                   localidade
-                    ? "R$ milhoes (" + anoSelecionado + ")"
+                    ? `R$ milhões (${anoSelecionado})`
                     : "selecione uma localidade"
                 }
                 cor="verde"
               />
               <CardMetrica
-                titulo="Populacao"
+                titulo="População"
                 valor={populacaoLocalidade}
                 descricao={
                   localidade
-                    ? "habitantes (" + anoSelecionado + ")"
+                    ? `habitantes (${anoSelecionado})`
                     : "selecione uma localidade"
                 }
               />
@@ -254,7 +140,7 @@ export default function Painel() {
                 valor={desempregoLocalidade}
                 descricao={
                   localidade
-                    ? "taxa % (" + anoSelecionado + " T4)"
+                    ? `taxa % (${anoSelecionado} T4)`
                     : "selecione uma localidade"
                 }
                 cor="amarelo"
@@ -278,11 +164,7 @@ export default function Painel() {
                       </p>
                       <p className="text-xs text-neutral-500 mt-0.5">
                         {presidente
-                          ? presidente.partido +
-                            " " +
-                            presidente.inicio +
-                            "–" +
-                            presidente.fim
+                          ? `${presidente.partido} ${presidente.inicio}–${presidente.fim}`
                           : "sem dados"}
                       </p>
                     </div>
