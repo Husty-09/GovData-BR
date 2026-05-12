@@ -104,12 +104,13 @@ export const MotionDropdown = React.forwardRef<
           style={menuStyle}
           className="min-w-48 origin-top-left rounded-xl border border-white/8 bg-[#0a0a0a]/90 backdrop-blur-xl shadow-lg ring-1"
         >
-          <div className="py-1 p-1 max-h-64 overflow-y-auto">
+          <div role="menu" className="py-1 p-1 max-h-64 overflow-y-auto">
             {children
               ? children
               : items?.map((item) => (
                   <button
                     key={item.value}
+                    role="menuitem"
                     onClick={() => {
                       item.onClick?.();
                       setIsOpen(false);
@@ -134,7 +135,7 @@ export const MotionDropdown = React.forwardRef<
         type="button"
         onClick={handleToggle}
         aria-expanded={isOpen}
-        aria-haspopup="listbox"
+        aria-haspopup="menu"
         className="inline-flex items-center justify-between w-full sm:w-48 px-4 py-2.5 rounded-xl border border-white/8 bg-white/2 backdrop-blur-md shadow-sm text-sm font-medium hover:bg-white/6 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/20 focus-visible:ring-offset-2"
       >
         {label}

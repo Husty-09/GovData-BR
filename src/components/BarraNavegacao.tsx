@@ -62,7 +62,7 @@ export function BarraNavegacao() {
         </motion.div>
 
         {/* Links */}
-        <nav className="flex items-center justify-center gap-6">
+        <nav aria-label="Navegacao principal" className="flex items-center justify-center gap-6">
           {links.map((link) => {
             const isActive = pathname === link.href;
             return (

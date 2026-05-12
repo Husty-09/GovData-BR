@@ -56,13 +56,15 @@ export function CardMetrica({
         y: -3,
         transition: { type: "spring", stiffness: 300, damping: 24 },
       }}
+      role="article"
       tabIndex={0}
       className="relative overflow-hidden rounded-xl border backdrop-blur-md px-5 py-4 bg-white/2"
       style={{
         borderColor: estilo.borderColor,
         boxShadow: estilo.boxShadow,
-        willChange: "transform",
       }}
+      onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.willChange = "transform"; }}
+      onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.willChange = "auto"; }}
     >
       <div
         className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-300 pointer-events-none"
@@ -79,7 +81,7 @@ export function CardMetrica({
         {valor}
       </p>
       {descricao && (
-        <p className="text-xs text-neutral-600 mt-0.5">{descricao}</p>
+        <p className="text-xs text-neutral-400 mt-0.5">{descricao}</p>
       )}
     </motion.div>
   );
