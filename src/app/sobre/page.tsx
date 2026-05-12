@@ -37,7 +37,6 @@ const stack = [
   "TypeScript",
   "Tailwind CSS",
   "Framer Motion",
-  "React",
   "HustyCore UI",
   "d3-geo",
   "Vercel",
