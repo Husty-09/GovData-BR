@@ -13,9 +13,38 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const URL_BASE = "https://govdata-br.vercel.app";
+const DESCRICAO = "Dashboard interativo que cruza dados econômicos do IBGE com mandatos políticos brasileiros por estado e período histórico.";
+
 export const metadata: Metadata = {
-  title: "GovData-BR",
-  description: "Dashboard interativo que cruza dados econômicos do IBGE com mandatos políticos brasileiros por estado e período histórico.",
+  title: {
+    default: "GovData-BR",
+    template: "%s | GovData-BR",
+  },
+  description: DESCRICAO,
+  metadataBase: new URL(URL_BASE),
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    siteName: "GovData-BR",
+    title: "GovData-BR",
+    description: DESCRICAO,
+    url: URL_BASE,
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "GovData-BR — dados econômicos e mandatos políticos do Brasil",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "GovData-BR",
+    description: DESCRICAO,
+    images: ["/og-image.png"],
+  },
 };
 
 export default function RootLayout({
