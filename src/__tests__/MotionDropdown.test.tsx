@@ -42,3 +42,29 @@ test("clicar no item do dropdown chama a função onClick", async function () {
   await user.click(screen.getByText("São Paulo"));
   expect(onClickMock).toHaveBeenCalled();
 });
+
+test("fecha o dropdown ao clicar fora", async function () {
+  render(
+    <MotionDropdown
+      label={"Localidade/Ano"}
+      items={[{ label: "São Paulo", value: "SP", onClick: vi.fn() }]}
+    />,
+  );
+  fireEvent.click(screen.getByRole("button"));
+  expect(screen.getByText("São Paulo")).toBeDefined();
+  fireEvent.mouseDown(document);
+  expect(screen.queryByText("São Paulo")).toBeNull();
+});
+
+test("fecha o dropdown ao pressionar Escape", function () {
+  render(
+    <MotionDropdown
+      label={"Localidade/Ano"}
+      items={[{ label: "São Paulo", value: "SP", onClick: vi.fn() }]}
+    />,
+  );
+  fireEvent.click(screen.getByRole("button"));
+  expect(screen.getByText("São Paulo")).toBeDefined();
+  fireEvent.keyDown(document, { key: "Escape" });
+  expect(screen.queryByText("São Paulo")).toBeNull();
+});
