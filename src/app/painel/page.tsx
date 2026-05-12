@@ -5,6 +5,7 @@ import { usePainelData } from "@/hooks/usePainelData";
 import MapaBrasil from "@/components/MapaBrasil";
 import { MotionDropdown } from "@/components/MotionDropdown";
 import { CardMetrica } from "@/components/CardMetrica";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 
 const container: Variants = {
   hidden: {},
@@ -24,6 +25,8 @@ export default function Painel() {
     localidade,
     setLocalidade,
     anoSelecionado,
+    carregando,
+    erro,
     dados,
     ehBrasil,
     itensDropdown,
@@ -35,7 +38,20 @@ export default function Painel() {
     presidente,
   } = usePainelData();
 
+  if (erro) {
+    return (
+      <main className="min-h-screen bg-[#0a0a0a] px-6 pt-28 pb-16 flex items-center justify-center">
+        <div className="text-center max-w-sm">
+          <p className="text-4xl mb-4">⚠️</p>
+          <p className="text-neutral-200 font-semibold mb-2">Falha ao carregar dados</p>
+          <p className="text-neutral-500 text-sm">{erro}</p>
+        </div>
+      </main>
+    );
+  }
+
   return (
+    <ErrorBoundary>
     <main className="min-h-screen bg-[#0a0a0a] px-6 pt-28 pb-16">
       <div
         className="fixed inset-0 -z-10"
@@ -68,7 +84,7 @@ export default function Painel() {
                 color: "#00b341",
               }}
             >
-              ao vivo
+              Dados IBGE
             </span>
           </div>
           <p className="text-sm text-neutral-500">
@@ -125,6 +141,7 @@ export default function Painel() {
                     : "selecione uma localidade"
                 }
                 cor="verde"
+                carregando={carregando}
               />
               <CardMetrica
                 titulo="População"
@@ -134,6 +151,7 @@ export default function Painel() {
                     ? `habitantes (${anoSelecionado})`
                     : "selecione uma localidade"
                 }
+                carregando={carregando}
               />
               <CardMetrica
                 titulo="Desemprego"
@@ -144,6 +162,7 @@ export default function Painel() {
                     : "selecione uma localidade"
                 }
                 cor="amarelo"
+                carregando={carregando}
               />
 
               {localidade && (
@@ -192,5 +211,6 @@ export default function Painel() {
         </motion.div>
       </motion.div>
     </main>
+    </ErrorBoundary>
   );
 }

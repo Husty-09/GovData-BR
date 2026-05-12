@@ -16,6 +16,7 @@ export interface CardMetricaProps {
   valor: string | number;
   descricao?: string;
   cor?: "verde" | "amarelo" | "neutro";
+  carregando?: boolean;
 }
 
 export function CardMetrica({
@@ -23,6 +24,7 @@ export function CardMetrica({
   valor,
   descricao,
   cor = "neutro",
+  carregando = false,
 }: CardMetricaProps) {
   const estilos = {
     verde: {
@@ -74,14 +76,23 @@ export function CardMetrica({
       <p className="text-xs text-neutral-500 uppercase tracking-widest mb-1">
         {titulo}
       </p>
-      <p
-        className="text-2xl font-extrabold tracking-tight"
-        style={{ color: estilo.accentColor }}
-      >
-        {valor}
-      </p>
-      {descricao && (
-        <p className="text-xs text-neutral-400 mt-0.5">{descricao}</p>
+      {carregando ? (
+        <>
+          <div className="h-8 w-24 rounded-md bg-white/8 animate-pulse mb-1" />
+          <div className="h-3 w-32 rounded-md bg-white/5 animate-pulse" />
+        </>
+      ) : (
+        <>
+          <p
+            className="text-2xl font-extrabold tracking-tight"
+            style={{ color: estilo.accentColor }}
+          >
+            {valor}
+          </p>
+          {descricao && (
+            <p className="text-xs text-neutral-400 mt-0.5">{descricao}</p>
+          )}
+        </>
       )}
     </motion.div>
   );

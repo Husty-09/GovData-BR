@@ -33,10 +33,11 @@ const DADOS_INICIAIS: DadosPainel = {
 export function usePainelData() {
   const [localidade, setLocalidade] = useState<string | null>("Brasil");
   const [anoSelecionado, setAnoSelecionado] = useState<string>("2023");
-  const [carregando, setCarregando] = useState(true); // true desde o início — sem set síncrono no effect
+  const [carregando, setCarregando] = useState(true);
+  const [erro, setErro] = useState<string | null>(null);
   const [dados, setDados] = useState<DadosPainel>(DADOS_INICIAIS);
 
-  // Todos os fetches em paralelo
+  // Todos os fetches em paralelo — erro propagado para a UI
   useEffect(() => {
     Promise.all([
       buscarPIB(),
@@ -47,6 +48,7 @@ export function usePainelData() {
       .then(([pib, desemprego, populacao, brasil]) => {
         setDados({ pib, desemprego, populacao, brasil });
       })
+      .catch(() => setErro("Falha ao carregar dados do IBGE. Tente recarregar a pagina."))
       .finally(() => setCarregando(false));
   }, []);
 
@@ -130,6 +132,7 @@ export function usePainelData() {
     setLocalidade,
     anoSelecionado,
     carregando,
+    erro,
     dados,
     // Derivados
     siglaUF,
