@@ -72,6 +72,11 @@ function CardMetrica({
         y: -3,
         transition: { type: "spring", stiffness: 300, damping: 24 },
       }}
+      whileFocus={{
+        y: -3,
+        transition: { type: "spring", stiffness: 300, damping: 24 },
+      }}
+      tabIndex={0}
       className="relative overflow-hidden rounded-xl border backdrop-blur-md px-5 py-4 bg-white/2"
       style={{
         borderColor: estilo.borderColor,

@@ -64,6 +64,8 @@ export function BarraNavegacao() {
                 key={link.name}
                 variants={navItem}
                 whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
+                whileFocus={shouldReduceMotion ? {} : { scale: 1.05 }}
+                tabIndex={0}
                 whileTap={shouldReduceMotion ? {} : { scale: 0.97 }}
                 transition={{ type: "spring", stiffness: 300, damping: 28 }}
               >

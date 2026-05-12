@@ -140,6 +140,8 @@ export default function Inicio() {
           <motion.div
             variants={cardVariants}
             whileHover={{ y: -5, transition: { type: "spring", stiffness: 300, damping: 24 } }}
+            whileFocus={{ y: -5, transition: { type: "spring", stiffness: 300, damping: 24 } }}
+            tabIndex={0}
             className="relative overflow-hidden rounded-2xl border border-white/8 backdrop-blur-md p-6 bg-white/2"
             style={{ boxShadow: "0 20px 40px rgba(0,0,0,0.3)", willChange: "transform" }}
           >
@@ -159,6 +161,8 @@ export default function Inicio() {
           <motion.div
             variants={cardVariants}
             whileHover={{ y: -5, transition: { type: "spring", stiffness: 300, damping: 24 } }}
+            whileFocus={{ y: -5, transition: { type: "spring", stiffness: 300, damping: 24 } }}
+            tabIndex={0}
             className="relative overflow-hidden rounded-2xl border border-white/8 backdrop-blur-md p-6 bg-white/2"
             style={{ boxShadow: "0 20px 40px rgba(0,0,0,0.3)", willChange: "transform" }}
           >

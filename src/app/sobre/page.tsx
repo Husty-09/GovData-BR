@@ -156,6 +156,11 @@ export default function Sobre() {
               y: -4,
               transition: { type: "spring", stiffness: 300, damping: 24 },
             }}
+            whileFocus={{
+              y: -4,
+              transition: { type: "spring", stiffness: 300, damping: 24 },
+            }}
+            tabIndex={0}
             className="relative overflow-hidden rounded-2xl border border-white/8 backdrop-blur-md p-6 bg-white/2"
             style={{ willChange: "transform" }}
           >
@@ -189,6 +194,11 @@ export default function Sobre() {
               y: -4,
               transition: { type: "spring", stiffness: 300, damping: 24 },
             }}
+            whileFocus={{
+              y: -4,
+              transition: { type: "spring", stiffness: 300, damping: 24 },
+            }}
+            tabIndex={0}
             className="relative overflow-hidden rounded-2xl border border-white/8 backdrop-blur-md p-6 bg-white/2"
             style={{ willChange: "transform" }}
           >
@@ -246,6 +256,11 @@ export default function Sobre() {
               y: -4,
               transition: { type: "spring", stiffness: 300, damping: 24 },
             }}
+            whileFocus={{
+              y: -4,
+              transition: { type: "spring", stiffness: 300, damping: 24 },
+            }}
+            tabIndex={0}
             className="relative overflow-hidden rounded-2xl border border-white/8 backdrop-blur-md p-6 bg-white/2"
             style={{ willChange: "transform" }}
           >
@@ -276,6 +291,11 @@ export default function Sobre() {
               y: -4,
               transition: { type: "spring", stiffness: 300, damping: 24 },
             }}
+            whileFocus={{
+              y: -4,
+              transition: { type: "spring", stiffness: 300, damping: 24 },
+            }}
+            tabIndex={0}
             className="relative overflow-hidden rounded-2xl border border-white/8 backdrop-blur-md p-6 bg-white/2"
             style={{ willChange: "transform" }}
           >
