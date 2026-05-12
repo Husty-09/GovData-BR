@@ -16,6 +16,7 @@ export interface CardMetricaProps {
   valor: string | number;
   descricao?: string;
   cor?: "verde" | "amarelo" | "neutro";
+  carregando?: boolean;
 }
 
 export function CardMetrica({
@@ -23,6 +24,7 @@ export function CardMetrica({
   valor,
   descricao,
   cor = "neutro",
+  carregando = false,
 }: CardMetricaProps) {
   const estilos = {
     verde: {
@@ -56,13 +58,15 @@ export function CardMetrica({
         y: -3,
         transition: { type: "spring", stiffness: 300, damping: 24 },
       }}
+      role="article"
       tabIndex={0}
       className="relative overflow-hidden rounded-xl border backdrop-blur-md px-5 py-4 bg-white/2"
       style={{
         borderColor: estilo.borderColor,
         boxShadow: estilo.boxShadow,
-        willChange: "transform",
       }}
+      onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.willChange = "transform"; }}
+      onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.willChange = "auto"; }}
     >
       <div
         className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-300 pointer-events-none"
@@ -72,14 +76,23 @@ export function CardMetrica({
       <p className="text-xs text-neutral-500 uppercase tracking-widest mb-1">
         {titulo}
       </p>
-      <p
-        className="text-2xl font-extrabold tracking-tight"
-        style={{ color: estilo.accentColor }}
-      >
-        {valor}
-      </p>
-      {descricao && (
-        <p className="text-xs text-neutral-600 mt-0.5">{descricao}</p>
+      {carregando ? (
+        <>
+          <div className="h-8 w-24 rounded-md bg-white/8 animate-pulse mb-1" />
+          <div className="h-3 w-32 rounded-md bg-white/5 animate-pulse" />
+        </>
+      ) : (
+        <>
+          <p
+            className="text-2xl font-extrabold tracking-tight"
+            style={{ color: estilo.accentColor }}
+          >
+            {valor}
+          </p>
+          {descricao && (
+            <p className="text-xs text-neutral-400 mt-0.5">{descricao}</p>
+          )}
+        </>
       )}
     </motion.div>
   );
