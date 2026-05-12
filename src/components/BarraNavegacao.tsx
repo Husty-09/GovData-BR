@@ -24,7 +24,7 @@ const navItem: Variants = {
   },
 };
 
-const MotionLink = motion(Link);
+const MotionLink = motion.create(Link);
 
 export function BarraNavegacao() {
   const pathname = usePathname();
@@ -51,7 +51,13 @@ export function BarraNavegacao() {
       >
         {/* Logo */}
         <motion.div variants={navItem} className="flex items-center gap-2">
-          <Image src="/icon.svg" alt="GovData-BR" width={28} height={28} className="rounded-md" />
+          <Image
+            src="/icon.svg"
+            alt="GovData-BR"
+            width={28}
+            height={28}
+            className="rounded-md"
+          />
           <span className="text-xl font-bold">GovData-BR</span>
         </motion.div>
 
@@ -71,9 +77,10 @@ export function BarraNavegacao() {
                 className={`
                   block rounded-full px-3 py-1 text-sm font-medium
                   transition-colors duration-200
-                  ${isActive
-                    ? "bg-[#009c3b]/15 border border-[#009c3b]/30 text-[#00b341] shadow-[0_0_12px_rgba(0,156,59,0.55)]"
-                    : "text-muted-foreground hover:text-[#ffdf00]"
+                  ${
+                    isActive
+                      ? "bg-[#009c3b]/15 border border-[#009c3b]/30 text-[#00b341] shadow-[0_0_12px_rgba(0,156,59,0.55)]"
+                      : "text-muted-foreground hover:text-[#ffdf00]"
                   }
                 `}
               >
@@ -82,7 +89,6 @@ export function BarraNavegacao() {
             );
           })}
         </nav>
-
       </motion.div>
     </motion.header>
   );
