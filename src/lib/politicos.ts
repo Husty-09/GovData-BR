@@ -5,7 +5,7 @@ export interface MandatoHistorico {
   fim: number;
 }
 
-// ── Presidentes ──────────────────────────────────────────────────────────────
+// ── Presidentes 
 export const HISTORICO_PRESIDENTES: MandatoHistorico[] = [
   { nome: "Fernando Henrique Cardoso", partido: "PSDB", inicio: 2002, fim: 2002 },
   { nome: "Lula",                      partido: "PT",   inicio: 2003, fim: 2010 },
@@ -15,6 +15,7 @@ export const HISTORICO_PRESIDENTES: MandatoHistorico[] = [
   { nome: "Lula",                      partido: "PT",   inicio: 2023, fim: 2026 },
 ];
 
+// ── Governadores
 export const HISTORICO_GOVERNADORES: Record<string, MandatoHistorico[]> = {
   AC: [
     { nome: "Jorge Viana",     partido: "PT",  inicio: 2002, fim: 2006 },
