@@ -25,6 +25,7 @@ export const MotionDropdown = React.forwardRef<
   const [menuStyle, setMenuStyle] = React.useState<React.CSSProperties>({});
   const [mounted, setMounted] = React.useState(false);
   const containerRef = React.useRef<HTMLDivElement>(null);
+  const menuRef = React.useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
 
   React.useImperativeHandle(forwardedRef, () => containerRef.current!);
@@ -49,7 +50,9 @@ export const MotionDropdown = React.forwardRef<
     const handleOutsideClick = (e: MouseEvent) => {
       if (
         containerRef.current &&
-        !containerRef.current.contains(e.target as Node)
+        !containerRef.current.contains(e.target as Node) &&
+        menuRef.current &&
+        !menuRef.current.contains(e.target as Node)
       ) {
         setIsOpen(false);
       }
@@ -81,6 +84,7 @@ export const MotionDropdown = React.forwardRef<
     <AnimatePresence>
       {isOpen && (
         <motion.div
+        ref={menuRef}
           initial={{
             opacity: 0,
             y: shouldReduceMotion ? 0 : -10,
