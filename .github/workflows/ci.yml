@@ -8,7 +8,7 @@ on:
 
 jobs:
   ci:
-    name: Typecheck + Build
+    name: Lint, Typecheck, Testes e Build
     runs-on: ubuntu-latest
 
     steps:
@@ -24,11 +24,17 @@ jobs:
       - name: Instalar dependências
         run: npm ci
 
+      - name: Lint
+        run: npm run lint
+
+      - name: Auditoria de segurança
+        run: npm audit --audit-level=high
+
       - name: Typecheck
         run: npx tsc --noEmit
 
-      - name: Testes
-        run: npm test
+      - name: Testes com cobertura
+        run: npm test -- --coverage
 
       - name: Build
         run: npm run build
