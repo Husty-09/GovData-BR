@@ -2,10 +2,10 @@
 
 import { motion, type Variants } from "framer-motion";
 import { useEffect, useState } from "react";
-import { buscarPIB, buscarDesemprego, buscarPopulacao } from "@/lib/ibge";
+import { buscarPIB, buscarDesemprego, buscarPopulacao, buscarBrasil } from "@/lib/ibge";
 import MapaBrasil from "@/components/MapaBrasil";
 import { MotionDropdown } from "@/components/MotionDropdown";
-import type { ResultadoIBGE, DesempregoData, PopulacaoData } from "@/lib/types";
+import type { ResultadoIBGE, DesempregoData, PopulacaoData, BrasilData } from "@/lib/types";
 
 const container: Variants = {
   hidden: {},
@@ -97,7 +97,8 @@ function CardMetrica({
   );
 }
 
-const estados = [
+const Localidade = [
+  { nome: "Brasil", sigla: "BR" },
   { nome: "Acre", sigla: "AC" },
   { nome: "Alagoas", sigla: "AL" },
   { nome: "Amapá", sigla: "AP" },
@@ -128,15 +129,15 @@ const estados = [
 ];
 
 export default function Painel() {
-
-  const [estadoSelecionado, setEstadoSelecionado] = useState<string | null>(null);
+  const [LocalidadeSelecionado, setLocalidadeSelecionado] = useState<string | null>("Brasil");
   const [anoSelecionado, setAnoSelecionado] = useState<string>("2023");
 
   const [dados, setDados] = useState<{
+    brasil: BrasilData;
     pib: ResultadoIBGE[];
     desemprego: DesempregoData;
     populacao: PopulacaoData;
-  }>({ pib: [], desemprego: {}, populacao: {} });
+  }>({ brasil: {}, pib: [], desemprego: {}, populacao: {} });
 
   useEffect(() => {
     buscarPIB().then((pib) => setDados((prev) => ({ ...prev, pib })));
@@ -146,17 +147,20 @@ export default function Painel() {
     buscarPopulacao().then((populacao) =>
       setDados((prev) => ({ ...prev, populacao })),
     );
+    buscarBrasil().then((brasil) =>
+      setDados((prev) => ({ ...prev, brasil })),
+    );
   }, []);
 
   // Anos disponíveis extraídos dinamicamente dos dados do PIB
   const anosDisponiveis = Object.keys(
-    dados.pib[0]?.resultados[0]?.series[0]?.serie ?? {}
+    dados.pib[0]?.resultados[0]?.series[0]?.serie ?? {},
   ).sort((a, b) => Number(b) - Number(a));
 
-  const itensDropdown = estados.map((e) => ({
+  const itensDropdown = Localidade.map((e) => ({
     label: `${e.nome} (${e.sigla})`,
     value: e.sigla,
-    onClick: () => setEstadoSelecionado(e.nome),
+    onClick: () => setLocalidadeSelecionado(e.nome),
   }));
 
   const itensAno = anosDisponiveis.map((ano) => ({
@@ -165,21 +169,38 @@ export default function Painel() {
     onClick: () => setAnoSelecionado(ano),
   }));
 
-  function getIndicador(dataset: ResultadoIBGE[], nomeEstado: string, periodo: string): string {
-    if (!nomeEstado) return "—";
+  function getIndicador(
+    dataset: ResultadoIBGE[],
+    nomeLocalidade: string,
+    periodo: string,
+  ): string {
+    if (!nomeLocalidade) return "—";
     const series = dataset[0]?.resultados[0]?.series ?? [];
-    const serie = series.find((s) => s.localidade.nome === nomeEstado);
+    const serie = series.find((s) => s.localidade.nome === nomeLocalidade);
     const valor = serie?.serie?.[periodo];
     return valor ? Number(valor).toLocaleString("pt-BR") : "—";
   }
 
-  const pibEstado = estadoSelecionado ? getIndicador(dados.pib, estadoSelecionado, anoSelecionado) : "—";
-  const desempregoEstado = estadoSelecionado
-    ? (dados.desemprego[anoSelecionado]?.[estadoSelecionado]?.toFixed(1) ?? "—") + "%"
-    : "—";
-  const populacaoEstado = estadoSelecionado
-    ? (dados.populacao[anoSelecionado]?.[estadoSelecionado]?.toLocaleString("pt-BR") ?? "—")
-    : "—";
+  const ehBrasil = LocalidadeSelecionado === "Brasil";
+  const brasilAno = dados.brasil[anoSelecionado] as Record<string, number> | undefined;
+
+  const pibLocalidade = !LocalidadeSelecionado
+    ? "—"
+    : ehBrasil
+      ? (brasilAno?.pib != null ? Number(brasilAno.pib).toLocaleString("pt-BR") : "—")
+      : getIndicador(dados.pib, LocalidadeSelecionado, anoSelecionado);
+
+  const desempregoLocalidade = !LocalidadeSelecionado
+    ? "—"
+    : ehBrasil
+      ? (brasilAno?.desemprego != null ? Number(brasilAno.desemprego).toFixed(1) + "%" : "—")
+      : (dados.desemprego[anoSelecionado]?.[LocalidadeSelecionado]?.toFixed(1) ?? "—") + "%";
+
+  const populacaoLocalidade = !LocalidadeSelecionado
+    ? "—"
+    : ehBrasil
+      ? (brasilAno?.populacao != null ? Number(brasilAno.populacao).toLocaleString("pt-BR") : "—")
+      : (dados.populacao[anoSelecionado]?.[LocalidadeSelecionado]?.toLocaleString("pt-BR") ?? "—");
 
   return (
     <main className="min-h-screen bg-[#0a0a0a] px-6 pt-28 pb-16">
@@ -223,7 +244,8 @@ export default function Painel() {
             </span>
           </div>
           <p className="text-sm text-neutral-500">
-            Dados do IBGE cruzados com mandatos políticos brasileiros por estado
+            Dados do IBGE cruzados com mandatos políticos brasileiros por
+            Localidade e Ano
           </p>
         </motion.div>
 
@@ -239,22 +261,22 @@ export default function Painel() {
           >
             <MapaBrasil
               dados={dados.pib}
-              estadoSelecionado={estadoSelecionado}
-              onEstadoClick={setEstadoSelecionado}
+              localidadeSelecionada={LocalidadeSelecionado}
+              onLocalidadeClick={setLocalidadeSelecionado}
               ano={anoSelecionado}
             />
           </div>
 
           {/* Coluna direita — dropdown + cards */}
           <div className="flex flex-col gap-4">
-            {/* Dropdown de estados */}
+            {/* Dropdown de Localidade */}
             <div>
               <p className="text-[10px] text-neutral-500 uppercase tracking-widest mb-2">
-                Estado
+                Localidade
               </p>
-              {/* label dinâmico: mostra o estado escolhido ou texto padrão */}
+              {/* label dinâmico: mostra a localidade escolhida ou texto padrão */}
               <MotionDropdown
-                label={estadoSelecionado ?? "Selecionar estado"}
+                label={LocalidadeSelecionado ?? "Selecionar localidade"}
                 items={itensDropdown}
                 className="w-full"
               />
@@ -272,23 +294,35 @@ export default function Painel() {
               />
             </div>
 
-            {/* Cards de indicadores do estado selecionado */}
+            {/* Cards de indicadores da localidade selecionada */}
             <div className="flex flex-col gap-3">
               <CardMetrica
                 titulo="PIB"
-                valor={pibEstado}
-                descricao={estadoSelecionado ? `R$ milhões (${anoSelecionado})` : "selecione um estado"}
+                valor={pibLocalidade}
+                descricao={
+                  LocalidadeSelecionado
+                    ? `R$ milhões (${anoSelecionado})`
+                    : "selecione uma localidade"
+                }
                 cor="verde"
               />
               <CardMetrica
                 titulo="População"
-                valor={populacaoEstado}
-                descricao={estadoSelecionado ? `habitantes (${anoSelecionado})` : "selecione um estado"}
+                valor={populacaoLocalidade}
+                descricao={
+                  LocalidadeSelecionado
+                    ? `habitantes (${anoSelecionado})`
+                    : "selecione uma localidade"
+                }
               />
               <CardMetrica
                 titulo="Desemprego"
-                valor={desempregoEstado}
-                descricao={estadoSelecionado ? `taxa % (${anoSelecionado} T4)` : "selecione um estado"}
+                valor={desempregoLocalidade}
+                descricao={
+                  LocalidadeSelecionado
+                    ? `taxa % (${anoSelecionado} T4)`
+                    : "selecione uma localidade"
+                }
                 cor="amarelo"
               />
               <CardMetrica

@@ -7,13 +7,13 @@ import type { ResultadoIBGE } from "@/lib/types";
 
 export default function MapaBrasil({
   dados,
-  estadoSelecionado,
-  onEstadoClick,
+  localidadeSelecionada,
+  onLocalidadeClick,
   ano,
 }: {
   dados: ResultadoIBGE[];
-  estadoSelecionado?: string | null;
-  onEstadoClick?: (nome: string) => void;
+  localidadeSelecionada?: string | null;
+  onLocalidadeClick?: (nome: string) => void;
   ano: string;
 }) {
   const [mapa, setMapa] = useState<FeatureCollection | null>(null);
@@ -72,7 +72,7 @@ export default function MapaBrasil({
                 cursor: "pointer",
                 transition: "filter 0.3s ease",
                 filter:
-                  estadoSelecionado ===
+                  localidadeSelecionada ===
                   (estado.properties as { name: string }).name
                     ? "brightness(1.8) drop-shadow(0 0 6px rgba(0,180,70,0.8))"
                     : "brightness(1)",
@@ -104,7 +104,7 @@ export default function MapaBrasil({
               onMouseLeave={(e) => {
                 const nome = (estado.properties as { name: string }).name;
                 e.currentTarget.style.filter =
-                  estadoSelecionado === nome
+                  localidadeSelecionada === nome
                     ? "brightness(1.8) drop-shadow(0 0 6px rgba(0,180,70,0.8))"
                     : "brightness(1)";
                 if (tooltipRef.current)
@@ -112,7 +112,7 @@ export default function MapaBrasil({
               }}
               onClick={() => {
                 const nome = (estado.properties as { name: string }).name;
-                onEstadoClick?.(nome);
+                onLocalidadeClick?.(nome);
               }}
             />
           ))}
