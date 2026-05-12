@@ -7,10 +7,6 @@ vi.mock("next/navigation", () => ({
   usePathname: vi.fn(() => "/"),
 }));
 
-vi.mock("next/image", () => ({
-  default: (props: { alt: string }) => <img {...props} />,
-}));
-
 test("renderiza a barra de navegação com os links corretos", function () {
   render(<BarraNavegacao />);
   expect(screen.getByText("Início")).toBeDefined();
