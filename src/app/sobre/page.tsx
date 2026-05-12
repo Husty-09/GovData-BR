@@ -69,7 +69,7 @@ const fontes = [
 
 export default function Sobre() {
   return (
-    <main className="h-screen bg-[#0a0a0a] px-6 pt-24 pb-8 overflow-hidden">
+    <main className="min-h-screen bg-[#0a0a0a] px-6 pt-24 pb-16">
       {/* Grid de fundo */}
       <div
         className="fixed inset-0 -z-10"
