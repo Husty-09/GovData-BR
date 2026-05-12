@@ -6,8 +6,11 @@ import React from "react";
 
 vi.mock("framer-motion", () => ({
   motion: {
-    div: ({ children, ...props }: React.HTMLAttributes<HTMLDivElement>) =>
-      React.createElement("div", props, children),
+    div: (props: React.HTMLAttributes<HTMLDivElement> & Record<string, unknown>) => {
+      const { children, whileHover, whileFocus, variants, ...rest } = props;
+      void whileHover; void whileFocus; void variants;
+      return React.createElement("div", rest, children);
+    },
   },
   AnimatePresence: ({ children }: { children: React.ReactNode }) => children,
   useReducedMotion: () => false,
