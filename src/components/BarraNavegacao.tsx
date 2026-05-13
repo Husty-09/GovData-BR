@@ -79,8 +79,8 @@ export function BarraNavegacao() {
                   transition-colors duration-200
                   ${
                     isActive
-                      ? "bg-[#009c3b]/15 border border-[#009c3b]/30 text-[#00b341] shadow-[0_0_12px_rgba(0,156,59,0.55)]"
-                      : "text-muted-foreground hover:text-[#ffdf00]"
+                      ? "bg-brand-verde/15 border border-brand-verde/30 text-brand-verde-claro shadow-[0_0_12px_rgba(0,156,59,0.55)]"
+                      : "text-muted-foreground hover:text-brand-amarelo"
                   }
                 `}
               >

@@ -2,7 +2,7 @@ import { InicioAnimado } from "@/components/InicioAnimado";
 
 export default function Inicio() {
   return (
-    <main className="relative flex min-h-screen flex-col items-center justify-center px-6 pt-32 pb-16 overflow-hidden bg-[#0a0a0a]">
+    <main className="relative flex min-h-screen flex-col items-center justify-center px-6 pt-32 pb-16 overflow-hidden bg-brand-fundo">
 
       {/* Grid de fundo */}
       <div

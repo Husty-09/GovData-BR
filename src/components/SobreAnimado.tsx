@@ -24,7 +24,7 @@ export function SobreAnimado() {
           boxShadow: "0 0 15px rgba(255,223,0,0.2)",
         }}
       >
-        <span className="h-1.5 w-1.5 rounded-full bg-[#ffdf00]" />
+        <span className="h-1.5 w-1.5 rounded-full bg-brand-amarelo" />
         Sobre o Projeto
       </motion.div>
 

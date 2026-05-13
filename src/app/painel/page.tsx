@@ -28,7 +28,7 @@ export default function Painel() {
 
   if (erro) {
     return (
-      <main className="min-h-screen bg-[#0a0a0a] px-6 pt-28 pb-16 flex items-center justify-center">
+      <main className="min-h-screen bg-brand-fundo px-6 pt-28 pb-16 flex items-center justify-center">
         <div className="text-center max-w-sm">
           <p className="text-4xl mb-4">⚠️</p>
           <p className="text-neutral-200 font-semibold mb-2">Falha ao carregar dados</p>
@@ -40,7 +40,7 @@ export default function Painel() {
 
   return (
     <ErrorBoundary>
-    <main className="min-h-screen bg-[#0a0a0a] px-6 pt-28 pb-16">
+    <main className="min-h-screen bg-brand-fundo px-6 pt-28 pb-16">
       <div
         className="fixed inset-0 -z-10"
         style={{

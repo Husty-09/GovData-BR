@@ -102,7 +102,7 @@ export const MotionDropdown = React.forwardRef<
               : { type: "spring", stiffness: 400, damping: 30 }
           }
           style={menuStyle}
-          className="min-w-48 origin-top-left rounded-xl border border-white/8 bg-[#0a0a0a]/90 backdrop-blur-xl shadow-lg ring-1"
+          className="min-w-48 origin-top-left rounded-xl border border-white/8 bg-brand-fundo/90 backdrop-blur-xl shadow-lg ring-1"
         >
           <div role="menu" className="py-1 p-1 max-h-64 overflow-y-auto">
             {children

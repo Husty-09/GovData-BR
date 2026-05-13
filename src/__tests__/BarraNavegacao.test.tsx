@@ -18,5 +18,5 @@ test("destaca o link ativo", function () {
   vi.mocked(usePathname).mockReturnValue("/painel");
   render(<BarraNavegacao />);
   const painelLink = screen.getByText("Painel");
-  expect(painelLink.className).toContain("text-[#00b341]");
+  expect(painelLink.className).toContain("text-brand-verde-claro");
 });

@@ -15,11 +15,11 @@ export function InicioAnimado() {
       {/* Badge */}
       <motion.div
         variants={itemVariants}
-        className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#009c3b]/30 bg-[#009c3b]/10 text-[#00b341] text-xs font-medium mb-6"
+        className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-verde/30 bg-brand-verde/10 text-brand-verde-claro text-xs font-medium mb-6"
         style={{ boxShadow: "0 0 15px rgba(0,156,59,0.25)" }}
       >
         <span
-          className="h-1.5 w-1.5 rounded-full bg-[#00b341] animate-pulse"
+          className="h-1.5 w-1.5 rounded-full bg-brand-verde-claro animate-pulse"
           style={{ boxShadow: "0 0 8px #009c3b" }}
         />
         Dados abertos do governo brasileiro
@@ -95,7 +95,7 @@ export function InicioAnimado() {
         >
           <div className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-300 pointer-events-none" style={{ backgroundColor: "rgba(0,156,59,0.08)" }} />
           <div className="absolute inset-0 bg-linear-to-br from-[#009c3b]/5 to-transparent pointer-events-none" />
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border border-[#009c3b]/25 bg-[#009c3b]/10 text-[#00b341] mb-3">
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border border-brand-verde/25 bg-brand-verde/10 text-brand-verde-claro mb-3">
             Dados Econômicos
           </span>
           <h3 className="text-lg font-bold text-white mb-2">IBGE por Estado</h3>
@@ -116,7 +116,7 @@ export function InicioAnimado() {
         >
           <div className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-300 pointer-events-none" style={{ backgroundColor: "rgba(255,223,0,0.08)" }} />
           <div className="absolute inset-0 bg-linear-to-br from-[#ffdf00]/5 to-transparent pointer-events-none" />
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border border-[#ffdf00]/25 bg-[#ffdf00]/10 text-[#ffdf00] mb-3">
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border border-brand-amarelo/25 bg-brand-amarelo/10 text-brand-amarelo mb-3">
             Mandatos Políticos
           </span>
           <h3 className="text-lg font-bold text-white mb-2">Governos e Mandatos</h3>
