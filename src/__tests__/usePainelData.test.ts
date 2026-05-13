@@ -47,10 +47,11 @@ beforeEach(() => {
   vi.mocked(ibge.buscarBrasil).mockResolvedValue(BRASIL_MOCK);
 });
 
-test("inicia com carregando=true e localidade=Brasil", () => {
+test("inicia com carregando=true e localidade=Brasil", async () => {
   const { result } = renderHook(() => usePainelData());
   expect(result.current.carregando).toBe(true);
   expect(result.current.localidade).toBe("Brasil");
+  await act(async () => {});
 });
 
 test("carregando vira false apos fetches", async () => {
@@ -142,6 +143,7 @@ test("erro e preenchido quando fetch falha", async () => {
 test("itensDropdown tem 28 localidades", async () => {
   const { result } = renderHook(() => usePainelData());
   expect(result.current.itensDropdown).toHaveLength(28);
+  await act(async () => {});
 });
 
 test("anosDisponiveis derivado do PIB recebido", async () => {
