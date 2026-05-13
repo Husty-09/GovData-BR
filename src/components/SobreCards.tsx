@@ -1,15 +1,7 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
-
-const card: Variants = {
-  hidden: { opacity: 0, y: 12 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { type: "spring", stiffness: 220, damping: 26 },
-  },
-};
+import { motion } from "framer-motion";
+import { cardVariants } from "@/lib/motion";
 
 const stack = [
   "Next.js 15",
@@ -53,7 +45,7 @@ export function SobreCards() {
     >
       {/* Missão */}
       <motion.div
-        variants={card}
+        variants={cardVariants}
         whileHover={{ y: -4, transition: { type: "spring", stiffness: 300, damping: 24 } }}
         whileFocus={{ y: -4, transition: { type: "spring", stiffness: 300, damping: 24 } }}
         tabIndex={0}
@@ -70,7 +62,7 @@ export function SobreCards() {
 
       {/* Fontes */}
       <motion.div
-        variants={card}
+        variants={cardVariants}
         whileHover={{ y: -4, transition: { type: "spring", stiffness: 300, damping: 24 } }}
         whileFocus={{ y: -4, transition: { type: "spring", stiffness: 300, damping: 24 } }}
         tabIndex={0}
@@ -95,7 +87,7 @@ export function SobreCards() {
 
       {/* Stack */}
       <motion.div
-        variants={card}
+        variants={cardVariants}
         whileHover={{ y: -4, transition: { type: "spring", stiffness: 300, damping: 24 } }}
         whileFocus={{ y: -4, transition: { type: "spring", stiffness: 300, damping: 24 } }}
         tabIndex={0}
@@ -116,7 +108,7 @@ export function SobreCards() {
 
       {/* Autor */}
       <motion.div
-        variants={card}
+        variants={cardVariants}
         whileHover={{ y: -4, transition: { type: "spring", stiffness: 300, damping: 24 } }}
         whileFocus={{ y: -4, transition: { type: "spring", stiffness: 300, damping: 24 } }}
         tabIndex={0}

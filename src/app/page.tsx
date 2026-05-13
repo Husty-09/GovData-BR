@@ -1,35 +1,8 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
+import { motion } from "framer-motion";
 import Link from "next/link";
-
-const container: Variants = {
-  hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.05,
-    },
-  },
-};
-
-const item: Variants = {
-  hidden: { opacity: 0, y: 16 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { type: "spring", stiffness: 260, damping: 24 },
-  },
-};
-
-const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 12 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { type: "spring", stiffness: 220, damping: 26 },
-  },
-};
+import { containerVariants, itemVariants, cardVariants } from "@/lib/motion";
 
 export default function Inicio() {
   return (
@@ -59,14 +32,14 @@ export default function Inicio() {
 
       <motion.div
         className="z-10 text-center max-w-4xl w-full"
-        variants={container}
+        variants={containerVariants}
         initial="hidden"
         animate="show"
       >
 
         {/* Badge */}
         <motion.div
-          variants={item}
+          variants={itemVariants}
           className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#009c3b]/30 bg-[#009c3b]/10 text-[#00b341] text-xs font-medium mb-6"
           style={{ boxShadow: "0 0 15px rgba(0,156,59,0.25)" }}
         >
@@ -79,7 +52,7 @@ export default function Inicio() {
 
         {/* Título */}
         <motion.h1
-          variants={item}
+          variants={itemVariants}
           className="text-5xl sm:text-7xl font-extrabold tracking-tighter mb-4"
         >
           <span className="bg-clip-text text-transparent bg-linear-to-r from-neutral-100 to-neutral-400">
@@ -95,7 +68,7 @@ export default function Inicio() {
 
         {/* Subtítulo */}
         <motion.p
-          variants={item}
+          variants={itemVariants}
           className="max-w-xl mx-auto text-lg text-neutral-400 mt-4 mb-10"
         >
           Dashboard interativo que cruza dados econômicos do IBGE com mandatos
@@ -104,7 +77,7 @@ export default function Inicio() {
 
         {/* CTAs */}
         <motion.div
-          variants={item}
+          variants={itemVariants}
           className="flex flex-col sm:flex-row gap-4 justify-center"
         >
           <Link
@@ -133,7 +106,7 @@ export default function Inicio() {
 
         {/* Cards */}
         <motion.div
-          variants={item}
+          variants={itemVariants}
           className="mt-20 grid grid-cols-1 md:grid-cols-2 gap-6 text-left"
         >
           {/* Card 1 — IBGE */}

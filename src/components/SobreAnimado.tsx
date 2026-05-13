@@ -1,39 +1,21 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import { SobreCards } from "./SobreCards";
-
-const container: Variants = {
-  hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.05,
-    },
-  },
-};
-
-const item: Variants = {
-  hidden: { opacity: 0, y: 14 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { type: "spring", stiffness: 260, damping: 24 },
-  },
-};
+import { containerVariants, itemVariants } from "@/lib/motion";
 
 export function SobreAnimado() {
   return (
     <motion.div
       className="max-w-3xl mx-auto"
-      variants={container}
+      variants={containerVariants}
       initial="hidden"
       animate="show"
     >
       {/* Badge */}
       <motion.div
-        variants={item}
+        variants={itemVariants}
         className="inline-flex items-center gap-2 px-3 py-1 rounded-full border text-xs font-medium mb-6"
         style={{
           borderColor: "rgba(255,223,0,0.25)",
@@ -48,7 +30,7 @@ export function SobreAnimado() {
 
       {/* Título */}
       <motion.h1
-        variants={item}
+        variants={itemVariants}
         className="text-4xl sm:text-5xl font-extrabold tracking-tighter mb-4"
       >
         <span className="bg-clip-text text-transparent bg-linear-to-r from-neutral-100 to-neutral-400">
@@ -66,7 +48,7 @@ export function SobreAnimado() {
 
       {/* Descrição */}
       <motion.p
-        variants={item}
+        variants={itemVariants}
         className="text-neutral-400 text-base leading-relaxed mb-6"
       >
         Plataforma de visualização de dados que cruza indicadores econômicos
@@ -76,12 +58,12 @@ export function SobreAnimado() {
       </motion.p>
 
       {/* Cards */}
-      <motion.div variants={item}>
+      <motion.div variants={itemVariants}>
         <SobreCards />
       </motion.div>
 
       {/* CTA */}
-      <motion.div variants={item} className="flex gap-4">
+      <motion.div variants={itemVariants} className="flex gap-4">
         <Link
           href="/painel"
           className="px-5 py-2.5 rounded-lg text-sm font-semibold text-white transition-shadow duration-300"
