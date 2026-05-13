@@ -22,7 +22,7 @@ export class ErrorBoundary extends Component<Props, State> {
     if (this.state.erro) {
       return (
         this.props.fallback ?? (
-          <div className="flex flex-col items-center justify-center min-h-[400px] gap-4 text-center px-6">
+          <div className="flex flex-col items-center justify-center min-h-100 gap-4 text-center px-6">
             <p className="text-4xl">⚠️</p>
             <p className="text-neutral-200 font-semibold text-lg">
               Algo deu errado
