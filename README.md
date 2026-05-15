@@ -38,7 +38,7 @@ O GovData-BR resolve isso: uma interface visual que permite a qualquer pessoa, s
 
 ```bash
 # 1. Clone o repositório
-https://github.com/Husty-09/GovData-BR.git
+git clone https://github.com/Husty-09/GovData-BR.git
 
 cd govdata-br
 
