@@ -38,14 +38,15 @@ O GovData-BR resolve isso: uma interface visual que permite a qualquer pessoa, s
 
 ```bash
 # 1. Clone o repositório
-https://github.com/Husty-09/GovData-BR.git
+git clone https://github.com/Husty-09/GovData-BR.git
 
+#2. Navegue até a pasta
 cd govdata-br
 
-# 2. Instale as dependências
+# 3. Instale as dependências
 npm install
 
-# 3. Suba o servidor de desenvolvimento
+# 4. Suba o servidor de desenvolvimento
 npm run dev
 ```
 
